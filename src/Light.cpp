@@ -9,9 +9,10 @@
 
 #include "Light.h"
 
-Light::Light()
+Light::Light(Point3D location, Colour colour)
 {
-
+   location_ = location;
+   lightColour_ = colour;
 }
 
 Light::~Light()

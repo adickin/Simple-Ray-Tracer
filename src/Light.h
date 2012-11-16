@@ -12,15 +12,18 @@
 
 #include "Vector3D.h"
 #include "Point3D.h"
+#include "Colour.h"
 class Light
 {
 public:
-   Light();
+   Light(Point3D location, Colour colour);
    ~Light();
 
+   
+
 private:
-   Vector3D direction_;
-   Point3D startPoint_;
+   Point3D location_;
+   Colour lightColour_;
 };
 
 #endif

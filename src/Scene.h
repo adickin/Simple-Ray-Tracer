@@ -14,8 +14,12 @@
 #include <QImage>
 #include "Point3D.h"
 #include "Vector3D.h"
+#include "Light.h"
 
-class I_GenericShape;
+class Ray;
+class Colour;
+
+#include "I_GenericShape.h"
 
 class Scene
 {
@@ -25,7 +29,9 @@ public:
    ~Scene();
 
    void drawScene();
+   Colour trace(Ray* ray);
    void setImage(QImage* image);
+   Colour getPixelColour(Intersection intersection);
 
 private:
    QList<I_GenericShape*> shapes_;
@@ -45,6 +51,9 @@ private:
    double z_;
 
    QImage* image_;
+
+   //Light
+   Light* lightOne_;
 
 };
 

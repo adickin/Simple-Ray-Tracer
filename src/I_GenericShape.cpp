@@ -12,12 +12,29 @@
 
 I_GenericShape::I_GenericShape()
 {
+   shapeMaterial_.colour.setBlue(0);
+   shapeMaterial_.colour.setRed(0);
+   shapeMaterial_.colour.setGreen(1.0);
 
+   
+   shapeMaterial_.ambientReflection = 2;
+   shapeMaterial_.diffuseReflection = 3;
+   shapeMaterial_.specularReflection = 5;
 }
 
 I_GenericShape::~I_GenericShape()
 {
 
+}
+
+Colour I_GenericShape::colour()
+{
+   return shapeMaterial_.colour;
+}
+
+void I_GenericShape::setColour(Colour& colour)
+{
+   shapeMaterial_.colour = colour;
 }
 
 /*

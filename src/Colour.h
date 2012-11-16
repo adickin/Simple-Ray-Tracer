@@ -13,8 +13,9 @@
 class Colour
 {
 public:
+   Colour();
    Colour(double red, double green, double blue);
-   ~Colour();
+   virtual ~Colour();
 
    double red() const;
    double green() const;
@@ -25,6 +26,7 @@ public:
    void setBlue(double blue);
 
 private:
+   void clamp(double& colour);
    double red_;
    double green_;
    double blue_;

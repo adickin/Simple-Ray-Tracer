@@ -21,7 +21,7 @@ public:
    Sphere(Point3D& centerLocation, double radius);
    ~Sphere();
 
-   virtual bool intersects(Ray* ray);
+   virtual Intersection intersects(Ray* ray);
 
 private:
    double radius_;

@@ -11,20 +11,23 @@
 #include "Sphere.h"
 #include "Point3D.h"
 #include "Vector3D.h"
+#include "Light.h"
 
 Scene::Scene()
 {
    Point3D point(-90,30,0);
    shapes_.push_back(new Sphere(point, 20));
 
-   point.setX(0);
-   point.setY(0);
-   point.setZ(0);
-   shapes_.push_back(new Sphere(point, 20));
+   //point.setX(0);
+   //point.setY(0);
+   //point.setZ(-50);
+   Colour colour(0.6, 0.1, 0.9);
+   //shapes_.push_back(new Sphere(point, 20));
+   shapes_.at(0)->setColour(colour);
 
    cameraLocation_.setX(0);
    cameraLocation_.setY(0);
-   cameraLocation_.setZ(150);
+   cameraLocation_.setZ(720);
 
    cameraDirection_.setX(0);
    cameraDirection_.setY(0);
@@ -38,6 +41,11 @@ Scene::Scene()
    w_ = imageWidth_;
    h_ = imageHeight_;
    z_ = cameraLocation_.z();
+
+   //Make a Light
+   Point3D lightLocation(50, 0, 0);
+   lightOne_ = new Light(lightLocation, Colour(1, 1, 1));
+  
 }
 
 Scene::~Scene()
@@ -56,7 +64,7 @@ void Scene::drawScene()
    {
       for(int y = 0; y < imageHeight_; y++)
       {
-         Point3D point(x - (imageWidth_/2), y - (imageHeight_/2), 0);
+         Point3D point(x - (imageWidth_/2), -y + (imageHeight_/2), -200);
 
          Vector3D vector(cameraLocation_, point);
          vector.normalizeVector();
@@ -65,46 +73,42 @@ void Scene::drawScene()
          ray.setDirectionVector(vector);
          ray.setStartPoint(cameraLocation_);
 
-         for(int i = 0; i < shapes_.size(); i++)
-         {
-            bool hit = shapes_.at(i)->intersects(&ray);
-            if(hit)
-            {
-               image_->setPixel(x, y, qRgb(255, 0, 0));
-            }
-         }
+         Colour colour = trace(&ray);
+
+         image_->setPixel(x, y, qRgb(colour.red()*255, colour.green()*255, colour.blue()*255));
       }
    }
 }
 
-// void Scene::drawScene()
-// {
-//    Ray ray;
-//    ray.setStartPoint(cameraLocation_);
-//    for(int x = 0; x < imageWidth_; x++)
-//    {
-//       for(int y = 0; y < imageHeight_; y++)
-//       {
-//          //Point3D point(x - (imageWidth_/2), y - (imageHeight_/2), imagePlane_);
-//          double dx = 400.0/imageWidth_;
-//          double dy = 400.0/imageHeight_;
+Colour Scene::trace(Ray* ray)
+{
+   Intersection intersection;
+   for(int i = 0; i < shapes_.size(); i++)
+   {
+      intersection = shapes_.at(i)->intersects(ray);
+   }
+   Colour colour = getPixelColour(intersection);
+   return colour;
+}
 
-//          double tempX = -200.0 + (x) * dx;
-//          double tempY = 200.0 - (y) * dy;
-//          Point3D tempPoint(tempX, tempY, 0);
+Colour Scene::getPixelColour(Intersection intersection)
+{
+   //Initializes to black
+   Colour pixelColour;
+   if(intersection.valid)
+   {
 
-//          Vector3D vector(cameraLocation_, tempPoint);
-//          vector.normalizeVector();
-//          ray.setDirectionVector(vector);
+      pixelColour = intersection.material.colour;
+   }
+   return pixelColour;
+}
 
-//          for(int i = 0; i < shapes_.size(); i++)
-//          {
-//             bool hit = shapes_.at(i)->intersects(&ray);
-//             if(hit)
-//             {
-//                image_->setPixel(x, y, qRgb(255, 0, 0));
-//             }
-//          }
-//       }
-//    }
-// }
+/*
+***************************************************************
+*
+*  Make initial ray somewhere and have a function called trace that is recursive.
+   Trace should return a colour and what not. and the returned colour is the pixel colour  
+   -May want to find all the intersections before determiing a colour sine you only want to draw the closest intersection
+*
+***************************************************************
+*/
