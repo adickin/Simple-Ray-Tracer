@@ -53,6 +53,12 @@ Vector3D::~Vector3D()
    //does nothing
 }
 
+double Vector3D::dotProduct(const Vector3D* vector)
+{
+   double product = (x_ * vector->x()) + (y_ * vector->y()) + (z_ * vector->z());
+   return product;
+}
+
 /*
 ***************************************************************
 *
@@ -72,6 +78,12 @@ void Vector3D::crossProduct(const Vector3D* vector)
    z_ = tempZ;
 }
 
+double Vector3D::magnitude()
+{
+   double magnitude = sqrt((x_ * x_) + (y_ * y_) + (z_ * z_));
+   return magnitude;
+}
+
 /*
 ***************************************************************
 *
@@ -81,11 +93,11 @@ void Vector3D::crossProduct(const Vector3D* vector)
 */
 void Vector3D::normalizeVector()
 {
-   double magnitude = sqrt((x_ * x_) + (y_ * y_) + (z_ * z_));
+   double magnitudeOfVector = magnitude();
 
-   x_ = x_/magnitude;
-   y_ = y_/magnitude;
-   z_ = z_/magnitude;
+   x_ = x_/magnitudeOfVector;
+   y_ = y_/magnitudeOfVector;
+   z_ = z_/magnitudeOfVector;
    isUnitVector_ = true;
 }
 

@@ -7,23 +7,22 @@
 *********************************************************************
 */
 
-#ifndef GENERICSHAPE_H
-#define GENERICSHAPE_H
-
-#include <QObject>
+#ifndef I_GENERICSHAPE_H
+#define I_GENERICSHAPE_H
 
 class Point3D;
 class Vector3D;
 
-class GenericShape : public QObject
+class I_GenericShape
 {
-   Q_OBJECT
 
 public:
-   GenericShape( QObject* parent = NULL);
-   ~GenericShape();
+   I_GenericShape();
+   ~I_GenericShape();
 
-   virtual bool intersects(Point3D* point, Vector3D* vector) = 0;
+   double quadraticFormula(double b, double a, double c);
+
+   virtual bool intersects(Point3D* start, Vector3D* direction) = 0;
 };
 
 #endif

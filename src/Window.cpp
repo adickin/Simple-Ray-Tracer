@@ -7,10 +7,11 @@
 *********************************************************************
 */
 
+#include <QImage>
 #include <QStringList>
+#include <QLabel>
 
 #include "Window.h"
-#include "GLWidget.h"
 #include "SideBar.h"
 
 /*
@@ -23,8 +24,10 @@
 Window::Window(QWidget *parent) 
 :QMainWindow(parent) 
 {
+   theScene_ = new Scene();
    interfaceSetup();
    setupSignalsAndSlots();
+
 }
 
 Window::~Window() 
@@ -40,7 +43,7 @@ Window::~Window()
 */
 void Window::interfaceSetup()
 {
-   setWindowTitle("Model Viewer");
+   setWindowTitle("Ray Tracer");
 
    //Menu Bar
    menuBar_ = new QMenuBar(this);
@@ -62,23 +65,38 @@ void Window::interfaceSetup()
 
    sideBar_ = new SideBar(centralWidget_);
 
-   glWidget_ = new GLWidget(centralWidget_);
+   imageLabel_ = new QLabel(centralWidget_);
+   resetImage();
+
    
    horizontalLayout_->addWidget(sideBar_);
-   horizontalLayout_->addWidget(glWidget_);
+   horizontalLayout_->addWidget(imageLabel_);
    setCentralWidget(centralWidget_);
 }
 
 /*
 ***************************************************************
 *
-*   Sets up all signals and slots for this class.
+*   Sets up all signals and slots for  class.
 *
 ***************************************************************
 */
 void Window::setupSignalsAndSlots()
 {
    
+}
+
+void Window::resetImage()
+{
+   if(image_ != NULL)
+   {
+      delete image_;
+   }
+
+   image_ = new QImage(640, 480, QImage::Format_RGB32);
+   theScene_->setImage(image_);
+   theScene_->drawScene();
+   imageLabel_->setPixmap(QPixmap::fromImage(*image_, Qt::AutoColor));
 }
 
 /*

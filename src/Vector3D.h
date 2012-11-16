@@ -28,6 +28,8 @@ public:
    ~Vector3D();
 
    void crossProduct(const Vector3D* vector);
+   double dotProduct(const Vector3D* vector);
+   double magnitude();
    void normalizeVector();
 
    double x() const;

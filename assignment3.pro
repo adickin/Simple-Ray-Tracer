@@ -15,22 +15,24 @@ UI_DIR = ./.ui
 
 
 # Input
-HEADERS +=  src/GLWidget.h \
-            src/Window.h \
+HEADERS +=  src/Window.h \
             src/SideBar.h \
             src/Vector3D.h \
             src/Point3D.h \
             src/Colour.h \
-            src/GenericShape.h
+            src/I_GenericShape.h \
+            src/Sphere.h \
+            src/Scene.h
 
             
-SOURCES +=  src/GLWidget.cpp \
-            src/main.cpp \
+SOURCES +=  src/main.cpp \
             src/Window.cpp \
             src/SideBar.cpp \
             src/Vector3D.cpp \
             src/Point3D.cpp \
             src/Colour.cpp \
-            src/GenericShape.cpp
+            src/I_GenericShape.cpp \
+            src/Sphere.cpp \
+            src/Scene.cpp
 
 FORMS +=    src/SideBar.ui

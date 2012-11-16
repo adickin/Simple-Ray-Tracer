@@ -12,10 +12,12 @@
 
 #include <QWidget>
 #include <QtGui>
-#include "GLWidget.h"
+#include <QList>
 
 class SideBar;
-class QGLWidget;
+class QImage;
+class QLabel;
+#include "Scene.h"
 
 /*
 ***************************************************************
@@ -39,6 +41,7 @@ public:
 private://methods
    void interfaceSetup();
    void setupSignalsAndSlots();
+   void resetImage();
 
 private slots://members
 
@@ -56,8 +59,11 @@ private:
    QWidget* centralWidget_;
    QHBoxLayout* horizontalLayout_;
 
-   GLWidget* glWidget_;
+   QLabel* imageLabel_;
+   QImage* image_;
    SideBar* sideBar_;
+
+   Scene* theScene_;
 
 };
 
