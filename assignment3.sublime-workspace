@@ -1,0 +1,426 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"tex",
+				"texManager_	TextureManager *"
+			],
+			[
+				"m",
+				"maxY	int"
+			],
+			[
+				"perform",
+				"performTranslationOnModel()	void"
+			],
+			[
+				"currn",
+				"currentWeaponTextureLabel	QLabel *"
+			],
+			[
+				"sel",
+				"selectWeaponTextureButton	QPushButton *"
+			],
+			[
+				"num",
+				"numberOfVertices() const	int"
+			],
+			[
+				"vertex",
+				"vertexCoordinate	VertexCoordinate"
+			],
+			[
+				"texure",
+				"textureLoadedForMd2Model_	bool"
+			],
+			[
+				"Md",
+				"MD2Wrapper	class"
+			],
+			[
+				"ge",
+				"GetWidth()	int"
+			],
+			[
+				"norm",
+				"normalZ	float"
+			],
+			[
+				"get",
+				"GetHeight()	int"
+			],
+			[
+				"data",
+				"data() const	const char *"
+			],
+			[
+				"max",
+				"maxZ	int"
+			],
+			[
+				"M",
+				"maxY	int"
+			],
+			[
+				"md2",
+				"md2ImageDimensions_	Dimensions"
+			],
+			[
+				"nume",
+				"numberOfVertices() const	int"
+			],
+			[
+				"p",
+				"pipe(int *__pipedes)	int"
+			],
+			[
+				"parent",
+				"parentWidget() const	QWidget *"
+			],
+			[
+				"setMinimum",
+				"setMinimumSize(int minw, int minh)	void"
+			],
+			[
+				"retri",
+				"retrieveVertexCoordinatesAt(const int index)	VertexCoordinate"
+			],
+			[
+				"md",
+				"md2Reader_	MD2Wrapper"
+			],
+			[
+				"ver",
+				"vertexThree	short"
+			],
+			[
+				"re",
+				"retrieveTriangleTextureIndicies(const int index, int *x, int *y, int *z)	void"
+			],
+			[
+				"y",
+				"y	int*"
+			],
+			[
+				"skin",
+				"skin_height	int"
+			],
+			[
+				"in",
+				"include"
+			],
+			[
+				"Q",
+				"Qt"
+			],
+			[
+				"is",
+				"isystem"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "QTassign2",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"main",
+				"Snippet: main()"
+			],
+			[
+				"",
+				"View: Toggle Side Bar"
+			]
+		],
+		"width": 422.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/work/assignment3/.gitattributes",
+		"/work/assignment2/src/Renderer.h",
+		"/work/assignment2/src/AffineTransformer.h",
+		"/work/assignment2/src/pcx.cpp",
+		"/work/assignment2/src/pcx.h",
+		"/work/assignment2/src/BMP.h",
+		"/home/adam/workspace/imageP/src/ImageDrawer.cpp",
+		"/work/assignment2/src/MD2Wrapper.h",
+		"/work/assignment2/README.md",
+		"/work/assignment2/.ui/ui_SideBar.h",
+		"/work/assignment2/src/SideBar.h",
+		"/work/assignment2/src/SideBar.cpp",
+		"/work/assignment2/src/md2.h",
+		"/work/assignment2/src/main.cpp",
+		"/home/adam/.config/sublime-text-2/Packages/SublimeClang/SublimeClang.sublime-settings",
+		"/home/adam/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/adam/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/adam/.config/sublime-text-2/Packages/User/JSON.sublime-settings",
+		"/work/assignment2/src/GLWidget.cpp",
+		"/work/assignment2/.ui/ui_MainWindow.h",
+		"/work/project/helloWorld/compile.sh",
+		"/work/project/helloWorld/crosscompile.sh",
+		"/work/project/helloWorld/test-sensors.c",
+		"/home/adam/setup_codesourcery.sh",
+		"/work/project/README.md",
+		"/home/adam/.config/sublime-text-2/Packages/User/copyright.sublime-snippet",
+		"/home/adam/.config/sublime-text-2/Packages/SublimeClang/MD2Viewer.sublime-project",
+		"/home/adam/.config/sublime-text-2/Packages/User/assignment2cpsc.sublime-build",
+		"/work/assignment2/src/md2.cpp",
+		"/opt/QtSDK/Desktop/Qt/4.8.1/gcc/include/QtOpenGL/qgl.h",
+		"/opt/QtSDK/Desktop/Qt/4.8.1/gcc/include/QtGui/qwindowdefs.h",
+		"/opt/QtSDK/Desktop/Qt/4.8.1/gcc/include/QtGui/qwindowdefs",
+		"/opt/QtSDK/Desktop/Qt/4.8.1/gcc/include/QtGui/qwidget.h",
+		"/home/adam/.config/sublime-text-2/Packages/SublimeClang/Default.sublime-keymap",
+		"/home/adam/.config/sublime-text-2/Packages/User/SublimeClang.sublime-settings",
+		"/home/adam/.config/sublime-text-2/Packages/User/C++.sublime-settings",
+		"/home/adam/.config/sublime-text-2/Packages/User/printtest.sublime-snippet",
+		"/home/adam/.config/sublime-text-2/Packages/User/comment.sublime-snippet",
+		"/home/adam/.config/sublime-text-2/Packages/User/comment.sublime-macro",
+		"/work/assignment2/src/Window.cpp",
+		"/work/assignment2/.gitignore",
+		"/work/assignment2/moc_GLWidget.cpp",
+		"/home/adam/Cpsc453/assignment2/Window.cpp",
+		"/home/adam/Cpsc453/assignment2/assignment2.pro",
+		"/home/adam/Cpsc453/assignment2/GLWidget.cpp",
+		"/home/adam/Cpsc453/assignment2/ui_SideBar.h",
+		"/work/assignment2/SideBar.h",
+		"/home/adam/Cpsc453/assignment2/main.cpp",
+		"/home/adam/Cpsc453/assignment2/GLWidget.h",
+		"/home/adam/Cpsc453/assignment2/ui_MainWindow.h",
+		"/etc/samba/smb.conf",
+		"/home/adam/Cpsc453/assignment2/Window.h",
+		"/home/adam/Cpsc453/assignment2/myglframe.h",
+		"/home/adam/Cpsc453/assignment2/mainwindow.h",
+		"/home/adam/Cpsc453/assignment2/mainwindow.ui",
+		"/home/adam/Cpsc453/assignment2/myrenderthread.h",
+		"/home/adam/Cpsc453/assignment2/Makefile",
+		"/home/adam/Cpsc453/assignment2/myrenderthread.cpp",
+		"/home/adam/Cpsc453/assignment2/mainwindow.cpp",
+		"/home/adam/Cpsc453/assignment2/README.md",
+		"/usr/share/applications/defaults.list",
+		"/usr/share/applications/sublime.desktop"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"groundTexture_",
+			"enableLighting",
+			"fileLoadSuccess",
+			"texture_",
+			"md2Reader_",
+			"FlipImg",
+			"frame_t",
+			"updateOrthoMatrix",
+			"glWidget_",
+			"        \"-",
+			"glColor3f",
+			"md2_t",
+			"vec3_t",
+			"widget",
+			"h",
+			"LDFLAGS",
+			"gedit"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"modelTexture",
+			"modelReader_",
+			"sublime"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.clang":
+	{
+		"height": 130.0
+	},
+	"output.clang_static_analyzer":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 124.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"bmp",
+				"BMP.h"
+			],
+			[
+				"md",
+				"md2.h"
+			],
+			[
+				"math",
+				"MathVector.h"
+			],
+			[
+				"gl",
+				"GLWidget.cpp"
+			],
+			[
+				"ass",
+				"/work/assignment2/assignment2.pro"
+			],
+			[
+				"pc",
+				"pcx.h"
+			],
+			[
+				"main",
+				"main.cpp"
+			],
+			[
+				"md2wrapp",
+				"MD2Wrapper.h"
+			],
+			[
+				"md2wrap",
+				"MD2Wrapper.h"
+			],
+			[
+				"wind",
+				"src/Window.cpp"
+			],
+			[
+				"sid",
+				"src/SideBar.cpp"
+			],
+			[
+				"ui",
+				".ui/ui_SideBar.h"
+			],
+			[
+				"window.h",
+				"src/Window.h"
+			],
+			[
+				"read",
+				"README.md"
+			],
+			[
+				"mo",
+				"moc_GLWidget.cpp"
+			],
+			[
+				"assi",
+				"assignment2.pro"
+			],
+			[
+				"m",
+				"mainwindow.ui"
+			],
+			[
+				"mainwind",
+				"mainwindow.ui"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/home/adam/.config/sublime-text-2/Packages/SublimeClang/MD2Viewer.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
