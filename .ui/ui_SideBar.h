@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'SideBar.ui'
 **
-** Created: Wed Nov 14 23:58:15 2012
+** Created: Thu Nov 15 20:12:04 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

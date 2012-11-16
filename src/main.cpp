@@ -16,6 +16,6 @@ int main (int argc, char **argv)
    Window* w = new Window();
    w->resize(1000, 750);
    w->show(); 
-
+	//test
    return app.exec();
 }
