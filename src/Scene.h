@@ -13,6 +13,7 @@
 #include <QList>
 #include <QImage>
 #include "Point3D.h"
+#include "Vector3D.h"
 
 class I_GenericShape;
 
@@ -28,11 +29,20 @@ public:
 
 private:
    QList<I_GenericShape*> shapes_;
-   Point3D cameraLocation_;
 
+   //EYE
+   Point3D cameraLocation_;
+   Vector3D cameraDirection_;
+   Vector3D cameraUp_;
+
+   //output image size.
    int imageWidth_;
    int imageHeight_;
-   int imagePlane_;
+
+   //image plane
+   double w_;
+   double h_;
+   double z_;
 
    QImage* image_;
 

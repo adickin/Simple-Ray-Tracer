@@ -23,6 +23,7 @@
 class Vector3D
 {
 public:
+   Vector3D();
    Vector3D(double x, double y, double z);
    Vector3D(const Point3D& one, const Point3D& two);
    ~Vector3D();

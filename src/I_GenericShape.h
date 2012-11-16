@@ -12,6 +12,7 @@
 
 class Point3D;
 class Vector3D;
+class Ray;
 
 class I_GenericShape
 {
@@ -22,7 +23,7 @@ public:
 
    double quadraticFormula(double b, double a, double c);
 
-   virtual bool intersects(Point3D* start, Vector3D* direction) = 0;
+   virtual bool intersects(Ray* ray) = 0;
 };
 
 #endif

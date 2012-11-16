@@ -22,7 +22,9 @@ HEADERS +=  src/Window.h \
             src/Colour.h \
             src/I_GenericShape.h \
             src/Sphere.h \
-            src/Scene.h
+            src/Scene.h \
+            src/Ray.h \
+            src/Light.h
 
             
 SOURCES +=  src/main.cpp \
@@ -33,6 +35,8 @@ SOURCES +=  src/main.cpp \
             src/Colour.cpp \
             src/I_GenericShape.cpp \
             src/Sphere.cpp \
-            src/Scene.cpp
+            src/Scene.cpp \
+            src/Ray.cpp \
+            src/Light.cpp
 
 FORMS +=    src/SideBar.ui

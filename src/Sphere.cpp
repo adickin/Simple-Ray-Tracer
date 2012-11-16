@@ -21,16 +21,16 @@ Sphere::~Sphere()
 
 }
 
-bool Sphere::intersects(Point3D* start, Vector3D* direction)
+bool Sphere::intersects(Ray* ray)
 {
-   Vector3D c(center_, *start);
-   double cDotDirection = direction->dotProduct(&c);
+   Vector3D c(ray->startPoint(), center_);
+   double cDotDirection = ray->directionVector().dotProduct(&c);
 
    double value = cDotDirection*cDotDirection - c.magnitude()*c.magnitude() + radius_*radius_;
 
    double sqrtValue = sqrt(value);
 
-   if(sqrtValue > 0)
+   if(sqrtValue >= 0)
    {
       return true;
    }
