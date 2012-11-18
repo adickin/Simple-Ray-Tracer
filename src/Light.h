@@ -13,13 +13,14 @@
 #include "Vector3D.h"
 #include "Point3D.h"
 #include "Colour.h"
+#include "I_GenericShape.h"
 class Light
 {
 public:
    Light(Point3D location, Colour colour);
    ~Light();
 
-   
+   Colour phongLighting(Intersection& intersection);
 
 private:
    Point3D location_;

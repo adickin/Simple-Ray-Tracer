@@ -15,15 +15,14 @@
 
 Scene::Scene()
 {
-   Point3D point(-90,30,0);
-   shapes_.push_back(new Sphere(point, 20));
+   Point3D point(0,0,0);
+   shapes_.push_back(new Sphere(point, 100));
 
    //point.setX(0);
    //point.setY(0);
    //point.setZ(-50);
-   Colour colour(0.6, 0.1, 0.9);
+   //Colour colour(0.6, 0.1, 0.9);
    //shapes_.push_back(new Sphere(point, 20));
-   shapes_.at(0)->setColour(colour);
 
    cameraLocation_.setX(0);
    cameraLocation_.setY(0);
@@ -43,8 +42,8 @@ Scene::Scene()
    z_ = cameraLocation_.z();
 
    //Make a Light
-   Point3D lightLocation(50, 0, 0);
-   lightOne_ = new Light(lightLocation, Colour(1, 1, 1));
+   Point3D lightLocation(100, 0, 200);
+   lightOne_ = new Light(lightLocation, Colour(1.0, 1.0, 1.0));
   
 }
 
@@ -60,6 +59,7 @@ void Scene::setImage(QImage* image)
 
 void Scene::drawScene()
 {
+   Ray ray;
    for(int x = 0; x < imageWidth_; x++)
    {
       for(int y = 0; y < imageHeight_; y++)
@@ -68,19 +68,18 @@ void Scene::drawScene()
 
          Vector3D vector(cameraLocation_, point);
          vector.normalizeVector();
-
-         Ray ray;
+         
          ray.setDirectionVector(vector);
          ray.setStartPoint(cameraLocation_);
 
-         Colour colour = trace(&ray);
+         Colour colour = trace(ray);
 
          image_->setPixel(x, y, qRgb(colour.red()*255, colour.green()*255, colour.blue()*255));
       }
    }
 }
 
-Colour Scene::trace(Ray* ray)
+Colour Scene::trace(Ray& ray)
 {
    Intersection intersection;
    for(int i = 0; i < shapes_.size(); i++)
@@ -98,7 +97,7 @@ Colour Scene::getPixelColour(Intersection intersection)
    if(intersection.valid)
    {
 
-      pixelColour = intersection.material.colour;
+      pixelColour = lightOne_->phongLighting(intersection);
    }
    return pixelColour;
 }

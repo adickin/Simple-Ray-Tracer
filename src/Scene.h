@@ -29,7 +29,7 @@ public:
    ~Scene();
 
    void drawScene();
-   Colour trace(Ray* ray);
+   Colour trace(Ray& ray);
    void setImage(QImage* image);
    Colour getPixelColour(Intersection intersection);
 

@@ -60,9 +60,18 @@ Vector3D::~Vector3D()
    //does nothing
 }
 
-double Vector3D::dotProduct(const Vector3D* vector)
+Vector3D Vector3D::operator-(const Vector3D &rhs)
 {
-   double product = (x_ * vector->x()) + (y_ * vector->y()) + (z_ * vector->z());
+   Vector3D returnedVector;
+   returnedVector.setX(x_ - rhs.x());
+   returnedVector.setY(y_ - rhs.y());
+   returnedVector.setZ(z_ - rhs.z());
+   return returnedVector;
+}
+
+double Vector3D::dotProduct(const Vector3D& vector)
+{
+   double product = (x_ * vector.x()) + (y_ * vector.y()) + (z_ * vector.z());
    return product;
 }
 

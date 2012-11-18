@@ -16,6 +16,8 @@ public:
    Colour();
    Colour(double red, double green, double blue);
    virtual ~Colour();
+   Colour operator*(const Colour &rhs);
+   Colour operator+(const Colour &rhs);
 
    double red() const;
    double green() const;

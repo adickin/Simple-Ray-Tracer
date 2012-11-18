@@ -19,11 +19,11 @@
 
 struct Material
 {
-   double specularReflection;
-   double diffuseReflection;
-   double ambientReflection;
+   Colour specular;
+   Colour diffuse;
+   Colour ambient;
    double shinyness;
-   Colour colour;
+   Colour emission;
 };
 
 struct Intersection
@@ -36,6 +36,7 @@ struct Intersection
 
 
    Material material;
+   double attenuation;
 };
 
 
@@ -46,12 +47,12 @@ public:
    I_GenericShape();
    ~I_GenericShape();
 
-   Colour colour();
-   void setColour(Colour& colour);
+   Material material();
+   void setMaterial(Material& colour);
 
    double quadraticFormula(double b, double a, double c);
 
-   virtual Intersection intersects(Ray* ray) = 0;
+   virtual Intersection intersects(Ray& ray) = 0;
 
 protected:
    Material shapeMaterial_;

@@ -10,16 +10,62 @@
 #include "I_GenericShape.h"
 #include "math.h"
 
+/*
+***************************************************************
+*
+  Red   : constant Material_type:= (
+    ambient   => (0.0, 0.0, 0.0, 1.0),
+    diffuse   => (1.0, 0.0, 0.0, 1.0),
+    specular  => (0.0225, 0.0225, 0.0225, 1.0),
+    emission  => (0.0, 0.0, 0.0, 1.0),
+    shininess => 12.8
+
+      Bronze    : constant Material_type:= (
+            ambient =>        (0.2125, 0.1275, 0.054, 1.0),
+            diffuse =>        (0.714, 0.4284, 0.18144, 1.0),
+            specular =>       (0.393548, 0.271906, 0.166721, 1.0),
+            emission =>       (0.0,0.0,0.0,0.0),
+            shininess =>      25.6);
+*
+***************************************************************
+*/
 I_GenericShape::I_GenericShape()
 {
-   shapeMaterial_.colour.setBlue(0);
-   shapeMaterial_.colour.setRed(0);
-   shapeMaterial_.colour.setGreen(1.0);
+   // shapeMaterial_.ambient.setRed(0.0);
+   // shapeMaterial_.ambient.setGreen(0.0);
+   // shapeMaterial_.ambient.setBlue(0.0);
 
-   
-   shapeMaterial_.ambientReflection = 2;
-   shapeMaterial_.diffuseReflection = 3;
-   shapeMaterial_.specularReflection = 5;
+   // shapeMaterial_.diffuse.setRed(1.0);
+   // shapeMaterial_.diffuse.setGreen(0.0);
+   // shapeMaterial_.diffuse.setBlue(0.0);
+
+   // shapeMaterial_.specular.setRed(0.0225);
+   // shapeMaterial_.specular.setGreen(0.0225);
+   // shapeMaterial_.specular.setBlue(0.0225);
+
+   // shapeMaterial_.emission.setRed(0);
+   // shapeMaterial_.emission.setGreen(0.0);
+   // shapeMaterial_.emission.setBlue(0);
+
+   // shapeMaterial_.shinyness = 12.8;
+
+   shapeMaterial_.ambient.setRed(0.2125);
+   shapeMaterial_.ambient.setGreen(0.1275);
+   shapeMaterial_.ambient.setBlue(0.054);
+
+   shapeMaterial_.diffuse.setRed(0.714);
+   shapeMaterial_.diffuse.setGreen(0.4284);
+   shapeMaterial_.diffuse.setBlue(0.18144);
+
+   shapeMaterial_.specular.setRed(0.393548);
+   shapeMaterial_.specular.setGreen(0.271906);
+   shapeMaterial_.specular.setBlue(0.166721);
+
+   shapeMaterial_.emission.setRed(0);
+   shapeMaterial_.emission.setGreen(0.0);
+   shapeMaterial_.emission.setBlue(0);
+
+   shapeMaterial_.shinyness = 25.6;
 }
 
 I_GenericShape::~I_GenericShape()
@@ -27,14 +73,14 @@ I_GenericShape::~I_GenericShape()
 
 }
 
-Colour I_GenericShape::colour()
+Material I_GenericShape::material()
 {
-   return shapeMaterial_.colour;
+   return shapeMaterial_;
 }
 
-void I_GenericShape::setColour(Colour& colour)
+void I_GenericShape::setMaterial(Material& material)
 {
-   shapeMaterial_.colour = colour;
+   shapeMaterial_ = material;
 }
 
 /*

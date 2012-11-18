@@ -19,13 +19,17 @@ Ray::~Ray()
 
 }
 
-void Ray::setStartPoint(Point3D& point)
+void Ray::setStartPoint(const Point3D& point)
 {
-   startPoint_ = point;
+   startPoint_.setX(point.x());
+   startPoint_.setY(point.y());
+   startPoint_.setZ(point.z());
 }
-void Ray::setDirectionVector(Vector3D& vector)
+void Ray::setDirectionVector(const Vector3D& vector)
 {
-   direction_ = vector;
+   direction_.setX(vector.x());
+   direction_.setY(vector.y());
+   direction_.setZ(vector.z());
 }
 
 Point3D Ray::startPoint()

@@ -16,10 +16,10 @@ class Ray
 {
 public:
    Ray();
-   ~Ray();
+   virtual ~Ray();
 
-   void setStartPoint(Point3D& point);
-   void setDirectionVector(Vector3D& vector);
+   void setStartPoint(const Point3D& point);
+   void setDirectionVector(const Vector3D& vector);
 
    Point3D startPoint();
    Vector3D directionVector();

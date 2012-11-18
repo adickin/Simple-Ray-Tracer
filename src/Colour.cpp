@@ -27,6 +27,24 @@ Colour::~Colour()
 
 }
 
+Colour Colour::operator*(const Colour &rhs)
+{
+   Colour returnColour;
+   returnColour.setRed(red_*rhs.red());
+   returnColour.setGreen(green_*rhs.green());
+   returnColour.setBlue(blue_*rhs.blue());
+   return returnColour;
+}
+
+Colour Colour::operator+(const Colour &rhs)
+{
+   Colour returnColour;
+   returnColour.setRed(red_+rhs.red());
+   returnColour.setGreen(green_+rhs.green());
+   returnColour.setBlue(blue_+rhs.blue());
+   return returnColour;
+}
+
 double Colour::red() const
 {
    return red_;
