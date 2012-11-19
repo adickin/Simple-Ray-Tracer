@@ -27,6 +27,8 @@ public:
    void setGreen(double green);
    void setBlue(double blue);
 
+   void multiplyColourByConstant(double constant);
+
 private:
    void clamp(double& colour);
    double red_;

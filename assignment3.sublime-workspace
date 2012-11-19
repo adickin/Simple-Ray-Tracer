@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"camera",
+				"cameraUp_	Vector3D"
+			],
+			[
+				"set",
+				"setZ(double z)	void"
+			],
+			[
+				"se",
+				"setY(double y)	void"
+			],
+			[
+				"image",
+				"imageHeight_	int"
+			],
+			[
+				"im",
+				"imageWidth_	int"
+			],
+			[
+				"ima",
+				"imageHeight_	int"
+			],
+			[
+				"temp",
+				"tempY	double"
+			],
+			[
+				"s",
+				"setZ(double z)	void"
+			],
+			[
+				"y",
+				"y_	double"
+			],
+			[
 				"tex",
 				"texManager_	TextureManager *"
 			],
@@ -100,10 +136,6 @@
 				"retrieveTriangleTextureIndicies(const int index, int *x, int *y, int *z)	void"
 			],
 			[
-				"y",
-				"y	int*"
-			],
-			[
 				"skin",
 				"skin_height	int"
 			],
@@ -123,8 +155,147 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/Colour.cpp",
+			"settings":
+			{
+				"buffer_size": 674,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Colour.h",
+			"settings":
+			{
+				"buffer_size": 560,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Ray.h",
+			"settings":
+			{
+				"buffer_size": 526,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Ray.cpp",
+			"settings":
+			{
+				"buffer_size": 509,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "/*\n*********************************************************************\n*  Adam Dickin\n*  10016859\n*  CPSC 453\n*  Assignment 3\n*********************************************************************\n*/\n\n#ifndef LIGHT_H\n#define LIGHT_H\n\n#include \"Vector3D.h\"\n#include \"Point3D.h\"\nclass Light\n{\npublic:\n   Light();\n   ~Light();\n\n   \n\nprivate:\n   Vector3D direction_;\n   Point3D startPoint_;\n};\n\n#endif",
+			"file": "src/Light.h",
+			"file_size": 393,
+			"file_write_time": 1353044715000000,
+			"settings":
+			{
+				"buffer_size": 398,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Light.cpp",
+			"settings":
+			{
+				"buffer_size": 263,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assignment3.pro",
+			"settings":
+			{
+				"buffer_size": 958,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Window.cpp",
+			"settings":
+			{
+				"buffer_size": 2438,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Window.h",
+			"settings":
+			{
+				"buffer_size": 1195,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Sphere.cpp",
+			"settings":
+			{
+				"buffer_size": 760,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Sphere.h",
+			"settings":
+			{
+				"buffer_size": 536,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Vector3D.h",
+			"settings":
+			{
+				"buffer_size": 984,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Vector3D.cpp",
+			"settings":
+			{
+				"buffer_size": 2605,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Scene.h",
+			"settings":
+			{
+				"buffer_size": 734,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/I_GenericShape.h",
+			"settings":
+			{
+				"buffer_size": 484,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/I_GenericShape.cpp",
+			"settings":
+			{
+				"buffer_size": 1066,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Scene.cpp",
+			"settings":
+			{
+				"buffer_size": 2441,
+				"line_ending": "Windows"
+			}
+		}
 	],
-	"build_system": "QTassign2",
+	"build_system": "Packages/User/assignment3cpsc.sublime-build",
 	"command_palette":
 	{
 		"height": 392.0,
@@ -156,6 +327,8 @@
 	},
 	"file_history":
 	[
+		"/home/adam/.config/sublime-text-2/Packages/User/assignment3cpsc.sublime-build",
+		"/home/adam/.config/sublime-text-2/Packages/User/assignment2cpsc.sublime-build",
 		"/work/assignment3/.gitattributes",
 		"/work/assignment2/src/Renderer.h",
 		"/work/assignment2/src/AffineTransformer.h",
@@ -183,7 +356,6 @@
 		"/work/project/README.md",
 		"/home/adam/.config/sublime-text-2/Packages/User/copyright.sublime-snippet",
 		"/home/adam/.config/sublime-text-2/Packages/SublimeClang/MD2Viewer.sublime-project",
-		"/home/adam/.config/sublime-text-2/Packages/User/assignment2cpsc.sublime-build",
 		"/work/assignment2/src/md2.cpp",
 		"/opt/QtSDK/Desktop/Qt/4.8.1/gcc/include/QtOpenGL/qgl.h",
 		"/opt/QtSDK/Desktop/Qt/4.8.1/gcc/include/QtGui/qwindowdefs.h",
@@ -272,8 +444,484 @@
 	"groups":
 	[
 		{
+			"selected": 4,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/Colour.cpp",
+					"settings":
+					{
+						"buffer_size": 674,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								312,
+								312
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/Colour.h",
+					"settings":
+					{
+						"buffer_size": 560,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Ray.h",
+					"settings":
+					{
+						"buffer_size": 526,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2,
+								2
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/Ray.cpp",
+					"settings":
+					{
+						"buffer_size": 509,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/Light.h",
+					"settings":
+					{
+						"buffer_size": 398,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								329,
+								329
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/Light.cpp",
+					"settings":
+					{
+						"buffer_size": 263,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								263,
+								263
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "assignment3.pro",
+					"settings":
+					{
+						"buffer_size": 958,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								929,
+								929
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 6,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 7,
+					"file": "src/Window.cpp",
+					"settings":
+					{
+						"buffer_size": 2438,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2035,
+								2035
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1188.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/Window.h",
+					"settings":
+					{
+						"buffer_size": 1195,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								356,
+								356
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "src/Sphere.cpp",
+					"settings":
+					{
+						"buffer_size": 760,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								760,
+								760
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 54.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "src/Sphere.h",
+					"settings":
+					{
+						"buffer_size": 536,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								474,
+								474
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "src/Vector3D.h",
+					"settings":
+					{
+						"buffer_size": 984,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								636,
+								636
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "src/Vector3D.cpp",
+					"settings":
+					{
+						"buffer_size": 2605,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1038,
+								1038
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 756.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "src/Scene.h",
+					"settings":
+					{
+						"buffer_size": 734,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								234,
+								234
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "src/I_GenericShape.h",
+					"settings":
+					{
+						"buffer_size": 484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								466,
+								466
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "src/I_GenericShape.cpp",
+					"settings":
+					{
+						"buffer_size": 1066,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 16,
+					"file": "src/Scene.cpp",
+					"settings":
+					{
+						"buffer_size": 2441,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								949,
+								949
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 486.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -294,11 +942,25 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				2,
+				0,
+				3,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.2940625,
+			0.66,
 			1.0
 		],
 		"rows":
@@ -331,6 +993,42 @@
 		"selected_items":
 		[
 			[
+				"sph",
+				"src/Sphere.cpp"
+			],
+			[
+				"i",
+				"src/I_GenericShape.h"
+			],
+			[
+				"sp",
+				"src/Sphere.cpp"
+			],
+			[
+				"ray",
+				"src/Ray.h"
+			],
+			[
+				"ass",
+				"assignment3.pro"
+			],
+			[
+				"vec",
+				"src/Vector3D.h"
+			],
+			[
+				"sphere",
+				"src/Sphere.cpp"
+			],
+			[
+				"scn",
+				"src/Scene.cpp"
+			],
+			[
+				"w",
+				"src/Window.cpp"
+			],
+			[
 				"bmp",
 				"BMP.h"
 			],
@@ -345,10 +1043,6 @@
 			[
 				"gl",
 				"GLWidget.cpp"
-			],
-			[
-				"ass",
-				"/work/assignment2/assignment2.pro"
 			],
 			[
 				"pc",
@@ -420,7 +1114,7 @@
 	"show_minimap": false,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_visible": false,
+	"side_bar_width": 160.0,
 	"status_bar_visible": true
 }

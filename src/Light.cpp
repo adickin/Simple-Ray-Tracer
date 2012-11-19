@@ -23,10 +23,18 @@ Light::~Light()
 
 Colour Light::phongLighting(Intersection& intersection)
 {
+   return ambientLight(intersection) + diffuseLight(intersection) +
+      specularLight(intersection);
+}
+
+Colour Light::ambientLight(Intersection& intersection)
+{
    Colour ambientColour = lightColour_ * intersection.material.ambient;
+   return ambientColour;
+}
 
-
-   //DIFFUSE
+Colour Light::diffuseLight(Intersection& intersection)
+{
    Colour diffuseColour = lightColour_ * intersection.material.diffuse;
    Vector3D lightVector(location_, intersection.intersectionPointClosest);
    lightVector.normalizeVector();
@@ -35,38 +43,43 @@ Colour Light::phongLighting(Intersection& intersection)
    {
       nDotLight = 0;
    }
-   diffuseColour.setRed(diffuseColour.red() * nDotLight);
-   diffuseColour.setGreen(diffuseColour.green() * nDotLight);
-   diffuseColour.setBlue(diffuseColour.blue() * nDotLight);
+   diffuseColour.multiplyColourByConstant(nDotLight);
 
-   //SPECULAR
+   return diffuseColour;
+}
+
+Colour Light::specularLight(Intersection& intersection)
+{
    Colour specularColour = lightColour_ * intersection.material.specular;
 
-   double nDotEyeVector = intersection.normal.dotProduct(intersection.rayFromCamera.directionVector());
+   Vector3D lightVector(location_, intersection.intersectionPointClosest);
+
+   //double nDotEyeVector = intersection.normal.dotProduct(intersection.rayFromCamera.directionVector());
+   double nDotEyeVector = intersection.normal.dotProduct(lightVector);
    nDotEyeVector *= 2;
 
-   Vector3D reflection;
-   reflection.setX(intersection.normal.x() * nDotEyeVector);
-   reflection.setY(intersection.normal.y() * nDotEyeVector);
-   reflection.setZ(intersection.normal.z() * nDotEyeVector);
-   reflection = reflection - intersection.rayFromCamera.directionVector();
+   Vector3D reflection = intersection.normal;
+   reflection.multiplyByConstant(nDotEyeVector);
+   //reflection.normalizeVector();
+   //reflection = reflection - intersection.rayFromCamera.directionVector();
+   reflection = reflection - lightVector;
    reflection.normalizeVector();
 
    double eyeVectorDotRefelction = intersection.rayFromCamera.directionVector().dotProduct(reflection);
    if(eyeVectorDotRefelction < 0)
    {
-      eyeVectorDotRefelction = 0;//-1.0 * pow(fabs(eyeVectorDotRefelction), intersection.material.shinyness);
+      eyeVectorDotRefelction = 0;
    }
    else
    {
-      eyeVectorDotRefelction = pow(fabs(eyeVectorDotRefelction), intersection.material.shinyness);
+      eyeVectorDotRefelction = pow(eyeVectorDotRefelction, intersection.material.shinyness);
    }
+   specularColour.multiplyColourByConstant(eyeVectorDotRefelction);
 
-   specularColour.setRed(specularColour.red() * eyeVectorDotRefelction);
-   specularColour.setGreen(specularColour.green() * eyeVectorDotRefelction);
-   specularColour.setBlue(specularColour.blue() * eyeVectorDotRefelction);
+   return specularColour;
+}
 
-   return ambientColour + diffuseColour + specularColour;
-   return diffuseColour;
-   //return specularColour;
+Point3D Light::location()
+{
+   return location_;
 }

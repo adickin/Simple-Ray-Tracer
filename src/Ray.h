@@ -24,9 +24,14 @@ public:
    Point3D startPoint();
    Vector3D directionVector();
 
+   void setFromObjectId(int objectId);
+   int fromObjectId();
+
 private:
    Vector3D direction_;
    Point3D startPoint_;
+   int fromObjectId_;
+
 };
 
 #endif

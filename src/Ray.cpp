@@ -11,7 +11,7 @@
 
 Ray::Ray()
 {
-
+   fromObjectId_ = -1;
 }
 
 Ray::~Ray()
@@ -39,4 +39,14 @@ Point3D Ray::startPoint()
 Vector3D Ray::directionVector()
 {
    return direction_;
+}
+
+void Ray::setFromObjectId(int objectId)
+{
+   fromObjectId_ = objectId;
+}
+
+int Ray::fromObjectId()
+{
+   return fromObjectId_;
 }

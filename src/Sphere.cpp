@@ -11,6 +11,7 @@
 #include "math.h"
 
 Sphere::Sphere(Point3D& centerLocation, double radius)
+:I_GenericShape()
 {
    center_ = centerLocation;
    radius_ = radius;
@@ -29,7 +30,12 @@ Intersection Sphere::intersects(Ray& ray)
    double sqrtValue = sqrt(value);
 
    Intersection intersection;
+   intersection.objectId = shapeId_;
    intersection.valid = false;
+   if(ray.fromObjectId() == shapeId_)
+   {
+      //return intersection;
+   }
    //One solution Exists
    if(sqrtValue == 0)
    {
@@ -45,13 +51,13 @@ Intersection Sphere::intersects(Ray& ray)
       intersection.rayFromCamera.setDirectionVector(ray.directionVector());
       intersection.intersectionPointClosest = intersectionPoint;
       intersection.material = shapeMaterial_;
+      intersection.distanceFromCamera = distance;
+      
 
-      //N = ((x - cx)/R, (y - cy)/R, (z - cz)/R)
 
       Vector3D normal(intersectionPoint, center_);
       normal.normalizeVector();
       intersection.normal = normal;
-
 
       return intersection;
    }
@@ -73,13 +79,10 @@ Intersection Sphere::intersects(Ray& ray)
          intersection.rayFromCamera.setDirectionVector(ray.directionVector());
          intersection.intersectionPointClosest = intersectionPoint;
          intersection.material = shapeMaterial_;
+         intersection.distanceFromCamera = distanceSolutionOne;
 
-          //N = ((x - cx)/R, (y - cy)/R, (z - cz)/R)
 
          Vector3D normal(intersectionPoint, center_);
-         // normal.setX( (intersectionPoint.x() - center_.x()) / radius_);
-         // normal.setY( (intersectionPoint.y() - center_.y()) / radius_);
-         // normal.setZ( (intersectionPoint.z() - center_.z()) / radius_);
          normal.normalizeVector();
          intersection.normal = normal;
       }
@@ -95,13 +98,9 @@ Intersection Sphere::intersects(Ray& ray)
          intersection.rayFromCamera.setDirectionVector(ray.directionVector());
          intersection.intersectionPointClosest = intersectionPoint;
          intersection.material = shapeMaterial_;
-
-         //N = ((x - cx)/R, (y - cy)/R, (z - cz)/R)
+         intersection.distanceFromCamera = distanceSolutionTwo;
 
          Vector3D normal(intersectionPoint, center_);
-         // normal.setX( (intersectionPoint.x() - center_.x()) / radius_);
-         // normal.setY( (intersectionPoint.y() - center_.y()) / radius_);
-         // normal.setZ( (intersectionPoint.z() - center_.z()) / radius_);
          normal.normalizeVector();
          intersection.normal = normal;
       }

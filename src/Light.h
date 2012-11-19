@@ -20,7 +20,12 @@ public:
    Light(Point3D location, Colour colour);
    ~Light();
 
+   Point3D location();
+
    Colour phongLighting(Intersection& intersection);
+   Colour ambientLight(Intersection& intersection);
+   Colour diffuseLight(Intersection& intersection);
+   Colour specularLight(Intersection& intersection);
 
 private:
    Point3D location_;

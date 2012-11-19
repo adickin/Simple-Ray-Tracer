@@ -31,9 +31,10 @@ struct Intersection
    bool valid;
    Ray rayFromCamera;
    Vector3D normal;
+   double distanceFromCamera;
+   int objectId;
 
    Point3D intersectionPointClosest;
-
 
    Material material;
    double attenuation;
@@ -47,8 +48,13 @@ public:
    I_GenericShape();
    ~I_GenericShape();
 
+   int shapeId();
+
    Material material();
    void setMaterial(Material& colour);
+
+   void setMaterialChrome();
+   void setMaterialBronze();
 
    double quadraticFormula(double b, double a, double c);
 
@@ -56,6 +62,7 @@ public:
 
 protected:
    Material shapeMaterial_;
+   int shapeId_;
 };
 
 #endif

@@ -69,6 +69,15 @@ Vector3D Vector3D::operator-(const Vector3D &rhs)
    return returnedVector;
 }
 
+Vector3D& Vector3D::operator=(const Vector3D &rhs)
+{
+   x_ = rhs.x();
+   y_ = rhs.y();
+   z_ = rhs.z();
+
+   return *this;
+}
+
 double Vector3D::dotProduct(const Vector3D& vector)
 {
    double product = (x_ * vector.x()) + (y_ * vector.y()) + (z_ * vector.z());
@@ -115,6 +124,13 @@ void Vector3D::normalizeVector()
    y_ = y_/magnitudeOfVector;
    z_ = z_/magnitudeOfVector;
    isUnitVector_ = true;
+}
+
+void Vector3D::multiplyByConstant(double constant)
+{
+   setX(x_ * constant);
+   setY(y_ * constant);
+   setZ(z_ * constant);
 }
 
 double Vector3D::x() const

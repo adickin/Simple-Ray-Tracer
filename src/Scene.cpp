@@ -15,14 +15,21 @@
 
 Scene::Scene()
 {
-   Point3D point(0,0,0);
+   Point3D point(-75,0, 0);
    shapes_.push_back(new Sphere(point, 100));
+   //shapes_.at(0)->setMaterialChrome();
 
-   //point.setX(0);
-   //point.setY(0);
-   //point.setZ(-50);
-   //Colour colour(0.6, 0.1, 0.9);
-   //shapes_.push_back(new Sphere(point, 20));
+   point.setX(75);
+   point.setY(0);
+   point.setZ(0);
+   shapes_.push_back(new Sphere(point, 25));
+   //shapes_.at(1)->setMaterialChrome();
+
+   // point.setX(0);
+   // point.setY(-100);
+   // point.setZ(0);
+   // shapes_.push_back(new Sphere(point, 50));
+   //shapes_.at(1)->setMaterialChrome();
 
    cameraLocation_.setX(0);
    cameraLocation_.setY(0);
@@ -42,7 +49,7 @@ Scene::Scene()
    z_ = cameraLocation_.z();
 
    //Make a Light
-   Point3D lightLocation(100, 0, 200);
+   Point3D lightLocation(75, 0, 100);
    lightOne_ = new Light(lightLocation, Colour(1.0, 1.0, 1.0));
   
 }
@@ -72,22 +79,91 @@ void Scene::drawScene()
          ray.setDirectionVector(vector);
          ray.setStartPoint(cameraLocation_);
 
-         Colour colour = trace(ray);
+         Colour colour = trace(ray, 0);
 
          image_->setPixel(x, y, qRgb(colour.red()*255, colour.green()*255, colour.blue()*255));
       }
    }
 }
 
-Colour Scene::trace(Ray& ray)
+Colour Scene::trace(Ray& ray, int temp)
 {
-   Intersection intersection;
+   //fprintf(stderr, "Depth %d\n", temp);
+   if(temp == 5)
+   {
+      return Colour();
+   }
+   QList<Intersection> possibleIntersections;
+
    for(int i = 0; i < shapes_.size(); i++)
    {
-      intersection = shapes_.at(i)->intersects(ray);
+      possibleIntersections << shapes_.at(i)->intersects(ray);
    }
-   Colour colour = getPixelColour(intersection);
-   return colour;
+
+   int closestIntersectionIndex = 0;
+   if(possibleIntersections.size()  > 1)
+   {
+      //two or more possible intersections with this ray, find the closest
+      double smallestDistance = -1;
+      for(int i = 0; i < possibleIntersections.size(); i++)
+      {
+         bool isIntersectionCloser = (smallestDistance > possibleIntersections.at(i).distanceFromCamera ||
+                                    smallestDistance == -1) &&
+                                    possibleIntersections.at(i).valid;
+         if(isIntersectionCloser)
+         {
+            smallestDistance = possibleIntersections.at(i).distanceFromCamera;
+            closestIntersectionIndex = i;
+         }
+      }
+   }
+
+
+   if(possibleIntersections.at(closestIntersectionIndex).valid == false ||
+      ray.fromObjectId() == possibleIntersections.at(closestIntersectionIndex).objectId)
+   {
+      return Colour();
+   }
+
+   Intersection intersection = possibleIntersections.at(closestIntersectionIndex);
+
+   Colour colour = getPixelColour(possibleIntersections.at(closestIntersectionIndex));
+
+   Ray reflectionRay;
+   //*************************************************************************
+   // //Make reflection vector
+   // //Vector3D lightVector(lightOne_->location(), intersection.intersectionPointClosest);
+
+   // //double nDotEyeVector = intersection.normal.dotProduct(intersection.rayFromCamera.directionVector());
+   // double nDotEyeVector = intersection.normal.dotProduct(lightVector);
+   // nDotEyeVector *= 2;
+
+   // Vector3D reflection = intersection.normal;
+   // reflection.multiplyByConstant(nDotEyeVector);
+   // //reflection = reflection - intersection.rayFromCamera.directionVector();
+   // reflection = reflection - lightVector;
+   // reflection.normalizeVector();
+
+   Vector3D reflection = intersection.rayFromCamera.directionVector();
+   reflection.multiplyByConstant(-1);
+
+   double nDotEyeVector = reflection.dotProduct(intersection.normal);
+   nDotEyeVector *= 2;
+   Vector3D multiplied = intersection.normal;
+   multiplied.multiplyByConstant(nDotEyeVector);
+
+   reflection = reflection - multiplied;
+   //****************************************************************************
+   reflectionRay.setStartPoint(possibleIntersections.at(closestIntersectionIndex).intersectionPointClosest);
+   reflectionRay.setDirectionVector(reflection);
+
+   //fprintf(stderr, "%d\n", intersection.objectId);
+   reflectionRay.setFromObjectId(intersection.objectId);
+   //fprintf(stderr, "adfalskdjfhlak  %d\n", reflectionRay.fromObjectId());
+   Colour reflectedColour = trace(reflectionRay, ++temp);
+
+   //return reflectedColour;
+   return colour + reflectedColour;
 }
 
 Colour Scene::getPixelColour(Intersection intersection)
@@ -96,8 +172,35 @@ Colour Scene::getPixelColour(Intersection intersection)
    Colour pixelColour;
    if(intersection.valid)
    {
-
       pixelColour = lightOne_->phongLighting(intersection);
+
+
+      // Intersection objectIntersectionBeforeHittingLight;
+      // Ray ray;
+      //    //Vector3D shadowBeam(intersection.intersectionPointClosest, lightOne_->location());
+      // Vector3D shadowBeam(lightOne_->location(), intersection.intersectionPointClosest);
+      // shadowBeam.normalizeVector();
+      // ray.setDirectionVector(shadowBeam);
+      // ray.setStartPoint(intersection.intersectionPointClosest);
+      // ray.setFromObjectId(intersection.objectId);
+
+      // for(int i = 0; i < shapes_.size(); i++)
+      // {
+
+      //    objectIntersectionBeforeHittingLight = shapes_.at(i)->intersects(ray);
+
+      //    if(objectIntersectionBeforeHittingLight.valid &&
+      //       objectIntersectionBeforeHittingLight.objectId != ray.fromObjectId() )
+      //    {
+      //       fprintf(stderr, "in shadow\n");
+      //       pixelColour = Colour();
+      //    }
+      //    else
+      //    {
+      //       fprintf(stderr, "not in shadow\n");
+      //    }
+      // }
+
    }
    return pixelColour;
 }
