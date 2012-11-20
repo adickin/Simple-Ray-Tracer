@@ -24,6 +24,8 @@ public:
    virtual Intersection intersects(Ray& ray);
 
 private:
+   void fillIntersection(Intersection& intersection,
+                        Ray& ray, double distance);
    double radius_;
    Point3D center_;
 };

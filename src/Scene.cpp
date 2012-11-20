@@ -16,20 +16,20 @@
 Scene::Scene()
 {
    Point3D point(-75,0, 0);
-   shapes_.push_back(new Sphere(point, 100));
+   shapes_.push_back(new Sphere(point, 50));
    //shapes_.at(0)->setMaterialChrome();
 
    point.setX(75);
    point.setY(0);
    point.setZ(0);
-   shapes_.push_back(new Sphere(point, 25));
-   //shapes_.at(1)->setMaterialChrome();
+   shapes_.push_back(new Sphere(point, 50));
+   shapes_.at(1)->setMaterialChrome();
 
-   // point.setX(0);
-   // point.setY(-100);
-   // point.setZ(0);
-   // shapes_.push_back(new Sphere(point, 50));
-   //shapes_.at(1)->setMaterialChrome();
+   //  point.setX(0);
+   //  point.setY(-100);
+   //  point.setZ(0);
+   //  shapes_.push_back(new Sphere(point, 50));
+   // shapes_.at(2)->setMaterialChrome();
 
    cameraLocation_.setX(0);
    cameraLocation_.setY(0);
@@ -118,6 +118,10 @@ Colour Scene::trace(Ray& ray, int temp)
       }
    }
 
+   // if(ray.fromObjectId() == possibleIntersections.at(closestIntersectionIndex).objectId)
+   // {
+   //    fprintf(stderr, "getting here\n");
+   // }
 
    if(possibleIntersections.at(closestIntersectionIndex).valid == false ||
       ray.fromObjectId() == possibleIntersections.at(closestIntersectionIndex).objectId)
@@ -152,7 +156,8 @@ Colour Scene::trace(Ray& ray, int temp)
    Vector3D multiplied = intersection.normal;
    multiplied.multiplyByConstant(nDotEyeVector);
 
-   reflection = reflection - multiplied;
+   reflection = multiplied - reflection;
+   reflection.normalizeVector();
    //****************************************************************************
    reflectionRay.setStartPoint(possibleIntersections.at(closestIntersectionIndex).intersectionPointClosest);
    reflectionRay.setDirectionVector(reflection);
@@ -162,7 +167,7 @@ Colour Scene::trace(Ray& ray, int temp)
    //fprintf(stderr, "adfalskdjfhlak  %d\n", reflectionRay.fromObjectId());
    Colour reflectedColour = trace(reflectionRay, ++temp);
 
-   //return reflectedColour;
+   reflectedColour.multiplyColourByConstant(0.5);
    return colour + reflectedColour;
 }
 

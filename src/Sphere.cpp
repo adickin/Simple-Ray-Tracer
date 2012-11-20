@@ -26,7 +26,11 @@ Intersection Sphere::intersects(Ray& ray)
 {
    Vector3D c(ray.startPoint(), center_);
    double cDotDirection = ray.directionVector().dotProduct(c);
-   double value = cDotDirection*cDotDirection - c.magnitude()*c.magnitude() + radius_*radius_;
+   if(cDotDirection < 0)
+   {
+      cDotDirection *= 0;
+   }
+   double value = (cDotDirection*cDotDirection) - (c.magnitude()*c.magnitude()) + (radius_*radius_);
    double sqrtValue = sqrt(value);
 
    Intersection intersection;
@@ -34,78 +38,47 @@ Intersection Sphere::intersects(Ray& ray)
    intersection.valid = false;
    if(ray.fromObjectId() == shapeId_)
    {
-      //return intersection;
-   }
-   //One solution Exists
-   if(sqrtValue == 0)
-   {
-      double distance = cDotDirection;
-
-      Point3D intersectionPoint;
-      intersectionPoint.setX(ray.startPoint().x() + ray.directionVector().x()*distance);
-      intersectionPoint.setY(ray.startPoint().y() + ray.directionVector().y()*distance);
-      intersectionPoint.setZ(ray.startPoint().z() + ray.directionVector().z()*distance);
-
-      intersection.valid = true;
-      intersection.rayFromCamera.setStartPoint(ray.startPoint());
-      intersection.rayFromCamera.setDirectionVector(ray.directionVector());
-      intersection.intersectionPointClosest = intersectionPoint;
-      intersection.material = shapeMaterial_;
-      intersection.distanceFromCamera = distance;
-      
-
-
-      Vector3D normal(intersectionPoint, center_);
-      normal.normalizeVector();
-      intersection.normal = normal;
-
       return intersection;
    }
+   //One solution Exists
+   if(value == 0)
+   {
+      double distance = cDotDirection;
+      fillIntersection(intersection, ray, distance);
+   }
    //Two Solutions Exist
-   else if(sqrtValue > 0)
+   else if(value > 0)
    {
       double distanceSolutionOne = cDotDirection + sqrtValue;
       double distanceSolutionTwo = cDotDirection - sqrtValue;
 
       if(distanceSolutionOne < distanceSolutionTwo)
       {
-         Point3D intersectionPoint;
-         intersectionPoint.setX(ray.startPoint().x() + ray.directionVector().x()*distanceSolutionOne);
-         intersectionPoint.setY(ray.startPoint().y() + ray.directionVector().y()*distanceSolutionOne);
-         intersectionPoint.setZ(ray.startPoint().z() + ray.directionVector().z()*distanceSolutionOne);
-
-         intersection.valid = true;
-         intersection.rayFromCamera.setStartPoint(ray.startPoint());
-         intersection.rayFromCamera.setDirectionVector(ray.directionVector());
-         intersection.intersectionPointClosest = intersectionPoint;
-         intersection.material = shapeMaterial_;
-         intersection.distanceFromCamera = distanceSolutionOne;
-
-
-         Vector3D normal(intersectionPoint, center_);
-         normal.normalizeVector();
-         intersection.normal = normal;
+         fillIntersection(intersection, ray, distanceSolutionOne);
       }
       else
       {
-         Point3D intersectionPoint;
-         intersectionPoint.setX(ray.startPoint().x() + ray.directionVector().x()*distanceSolutionTwo);
-         intersectionPoint.setY(ray.startPoint().y() + ray.directionVector().y()*distanceSolutionTwo);
-         intersectionPoint.setZ(ray.startPoint().z() + ray.directionVector().z()*distanceSolutionTwo);
-
-         intersection.valid = true;
-         intersection.rayFromCamera.setStartPoint(ray.startPoint());
-         intersection.rayFromCamera.setDirectionVector(ray.directionVector());
-         intersection.intersectionPointClosest = intersectionPoint;
-         intersection.material = shapeMaterial_;
-         intersection.distanceFromCamera = distanceSolutionTwo;
-
-         Vector3D normal(intersectionPoint, center_);
-         normal.normalizeVector();
-         intersection.normal = normal;
+         fillIntersection(intersection, ray, distanceSolutionTwo);
       }
-      return intersection;
    }
-
    return intersection;
+}
+
+void Sphere::fillIntersection(Intersection& intersection, Ray& ray, double distance)
+{
+   Point3D intersectionPoint;
+   intersectionPoint.setX(ray.startPoint().x() + ray.directionVector().x()*distance);
+   intersectionPoint.setY(ray.startPoint().y() + ray.directionVector().y()*distance);
+   intersectionPoint.setZ(ray.startPoint().z() + ray.directionVector().z()*distance);
+
+   intersection.valid = true;
+   intersection.rayFromCamera.setStartPoint(ray.startPoint());
+   intersection.rayFromCamera.setDirectionVector(ray.directionVector());
+   intersection.intersectionPointClosest = intersectionPoint;
+   intersection.material = shapeMaterial_;
+   intersection.distanceFromCamera = distance;
+
+   Vector3D normal(intersectionPoint, center_);
+   normal.normalizeVector();
+   intersection.normal = normal;
 }

@@ -54,14 +54,11 @@ Colour Light::specularLight(Intersection& intersection)
 
    Vector3D lightVector(location_, intersection.intersectionPointClosest);
 
-   //double nDotEyeVector = intersection.normal.dotProduct(intersection.rayFromCamera.directionVector());
    double nDotEyeVector = intersection.normal.dotProduct(lightVector);
    nDotEyeVector *= 2;
 
    Vector3D reflection = intersection.normal;
    reflection.multiplyByConstant(nDotEyeVector);
-   //reflection.normalizeVector();
-   //reflection = reflection - intersection.rayFromCamera.directionVector();
    reflection = reflection - lightVector;
    reflection.normalizeVector();
 
