@@ -29,9 +29,14 @@ public:
    ~Scene();
 
    void drawScene();
-   Colour trace(Ray& ray, int temp);
+   Colour trace(Ray& ray, int depth);
    void setImage(QImage* image);
-   Colour getPixelColour(Intersection intersection);
+   
+
+private:
+   Colour getPixelColour(Intersection& intersection);
+   Intersection getClosestIntersection(QList<Intersection>& intersections);
+   bool isPointInShadow(Intersection& intersection);
 
 private:
    QList<I_GenericShape*> shapes_;

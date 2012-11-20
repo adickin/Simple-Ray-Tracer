@@ -26,7 +26,7 @@ Scene::Scene()
    shapes_.at(1)->setMaterialChrome();
 
    //  point.setX(0);
-   //  point.setY(-100);
+    point.setY(-100);
    //  point.setZ(0);
    //  shapes_.push_back(new Sphere(point, 50));
    // shapes_.at(2)->setMaterialChrome();
@@ -49,7 +49,7 @@ Scene::Scene()
    z_ = cameraLocation_.z();
 
    //Make a Light
-   Point3D lightLocation(75, 0, 100);
+   Point3D lightLocation(150, 0, 0);
    lightOne_ = new Light(lightLocation, Colour(1.0, 1.0, 1.0));
   
 }
@@ -86,126 +86,57 @@ void Scene::drawScene()
    }
 }
 
-Colour Scene::trace(Ray& ray, int temp)
+Colour Scene::trace(Ray& ray, int depth)
 {
-   //fprintf(stderr, "Depth %d\n", temp);
-   if(temp == 5)
+   if(depth == 5)
    {
       return Colour();
    }
-   QList<Intersection> possibleIntersections;
 
+   QList<Intersection> possibleIntersections;
    for(int i = 0; i < shapes_.size(); i++)
    {
       possibleIntersections << shapes_.at(i)->intersects(ray);
    }
 
-   int closestIntersectionIndex = 0;
-   if(possibleIntersections.size()  > 1)
-   {
-      //two or more possible intersections with this ray, find the closest
-      double smallestDistance = -1;
-      for(int i = 0; i < possibleIntersections.size(); i++)
-      {
-         bool isIntersectionCloser = (smallestDistance > possibleIntersections.at(i).distanceFromCamera ||
-                                    smallestDistance == -1) &&
-                                    possibleIntersections.at(i).valid;
-         if(isIntersectionCloser)
-         {
-            smallestDistance = possibleIntersections.at(i).distanceFromCamera;
-            closestIntersectionIndex = i;
-         }
-      }
-   }
+   Intersection intersection = getClosestIntersection(possibleIntersections);
 
-   // if(ray.fromObjectId() == possibleIntersections.at(closestIntersectionIndex).objectId)
-   // {
-   //    fprintf(stderr, "getting here\n");
-   // }
-
-   if(possibleIntersections.at(closestIntersectionIndex).valid == false ||
-      ray.fromObjectId() == possibleIntersections.at(closestIntersectionIndex).objectId)
+   if(intersection.valid == false ||
+      ray.fromObjectId() == intersection.objectId)
    {
       return Colour();
    }
 
-   Intersection intersection = possibleIntersections.at(closestIntersectionIndex);
-
-   Colour colour = getPixelColour(possibleIntersections.at(closestIntersectionIndex));
+   Colour localColour = getPixelColour(intersection);
 
    Ray reflectionRay;
-   //*************************************************************************
-   // //Make reflection vector
-   // //Vector3D lightVector(lightOne_->location(), intersection.intersectionPointClosest);
-
-   // //double nDotEyeVector = intersection.normal.dotProduct(intersection.rayFromCamera.directionVector());
-   // double nDotEyeVector = intersection.normal.dotProduct(lightVector);
-   // nDotEyeVector *= 2;
-
-   // Vector3D reflection = intersection.normal;
-   // reflection.multiplyByConstant(nDotEyeVector);
-   // //reflection = reflection - intersection.rayFromCamera.directionVector();
-   // reflection = reflection - lightVector;
-   // reflection.normalizeVector();
-
-   Vector3D reflection = intersection.rayFromCamera.directionVector();
-   reflection.multiplyByConstant(-1);
-
-   double nDotEyeVector = reflection.dotProduct(intersection.normal);
-   nDotEyeVector *= 2;
-   Vector3D multiplied = intersection.normal;
-   multiplied.multiplyByConstant(nDotEyeVector);
-
-   reflection = multiplied - reflection;
-   reflection.normalizeVector();
-   //****************************************************************************
-   reflectionRay.setStartPoint(possibleIntersections.at(closestIntersectionIndex).intersectionPointClosest);
+   Vector3D reflection = Vector3D::calculateReflectionVector(intersection.normal,
+                                     intersection.rayFromCamera.directionVector());
+   reflectionRay.setStartPoint(intersection.intersectionPointClosest);
    reflectionRay.setDirectionVector(reflection);
-
-   //fprintf(stderr, "%d\n", intersection.objectId);
    reflectionRay.setFromObjectId(intersection.objectId);
-   //fprintf(stderr, "adfalskdjfhlak  %d\n", reflectionRay.fromObjectId());
-   Colour reflectedColour = trace(reflectionRay, ++temp);
 
+   Colour reflectedColour = trace(reflectionRay, ++depth);
    reflectedColour.multiplyColourByConstant(0.5);
-   return colour + reflectedColour;
+   return localColour + reflectedColour;
 }
 
-Colour Scene::getPixelColour(Intersection intersection)
+Colour Scene::getPixelColour(Intersection& intersection)
 {
    //Initializes to black
    Colour pixelColour;
    if(intersection.valid)
    {
-      pixelColour = lightOne_->phongLighting(intersection);
-
-
-      // Intersection objectIntersectionBeforeHittingLight;
-      // Ray ray;
-      //    //Vector3D shadowBeam(intersection.intersectionPointClosest, lightOne_->location());
-      // Vector3D shadowBeam(lightOne_->location(), intersection.intersectionPointClosest);
-      // shadowBeam.normalizeVector();
-      // ray.setDirectionVector(shadowBeam);
-      // ray.setStartPoint(intersection.intersectionPointClosest);
-      // ray.setFromObjectId(intersection.objectId);
-
-      // for(int i = 0; i < shapes_.size(); i++)
-      // {
-
-      //    objectIntersectionBeforeHittingLight = shapes_.at(i)->intersects(ray);
-
-      //    if(objectIntersectionBeforeHittingLight.valid &&
-      //       objectIntersectionBeforeHittingLight.objectId != ray.fromObjectId() )
-      //    {
-      //       fprintf(stderr, "in shadow\n");
-      //       pixelColour = Colour();
-      //    }
-      //    else
-      //    {
-      //       fprintf(stderr, "not in shadow\n");
-      //    }
-      // }
-
+      bool inShadow = isPointInShadow(intersection);
+      if(!inShadow)
+      {
+         //fprintf(stderr, "getting here\n");
+         pixelColour = lightOne_->phongLighting(intersection);
+      }
+      else
+      {
+         pixelColour = lightOne_->diffuseLight(intersection);
+      }
    }
    return pixelColour;
 }
@@ -213,9 +144,57 @@ Colour Scene::getPixelColour(Intersection intersection)
 /*
 ***************************************************************
 *
-*  Make initial ray somewhere and have a function called trace that is recursive.
-   Trace should return a colour and what not. and the returned colour is the pixel colour  
-   -May want to find all the intersections before determiing a colour sine you only want to draw the closest intersection
+*   
 *
 ***************************************************************
 */
+Intersection Scene::getClosestIntersection(QList<Intersection>& intersections)
+{
+   int closestIntersectionIndex = 0;
+   if(intersections.size()  > 1)
+   {
+      //two or more possible intersections with this ray, find the closest
+      double smallestDistance = -1;
+      for(int i = 0; i < intersections.size(); i++)
+      {
+         bool isIntersectionCloser = (smallestDistance > intersections.at(i).distanceFromCamera ||
+                                    smallestDistance == -1) &&
+                                    intersections.at(i).valid;
+         if(isIntersectionCloser)
+         {
+            smallestDistance = intersections.at(i).distanceFromCamera;
+            closestIntersectionIndex = i;
+         }
+      }
+   }
+
+   return intersections[closestIntersectionIndex];
+}
+
+bool Scene::isPointInShadow(Intersection& intersection)
+{
+   bool isInShadow = false;
+   Ray ray;
+   Vector3D shadowBeam(intersection.intersectionPointClosest, lightOne_->location());
+   shadowBeam.normalizeVector();
+   ray.setDirectionVector(shadowBeam);
+   ray.setStartPoint(intersection.intersectionPointClosest);
+   ray.setFromObjectId(intersection.objectId);
+
+   Intersection currentPoint;
+   for(int i = 0; i < shapes_.size(); i++)
+   {
+      currentPoint = shapes_.at(i)->intersects(ray);
+
+      isInShadow = currentPoint.objectId != ray.fromObjectId() &&
+                   currentPoint.valid;
+      //isInShadow = currentPoint.valid;
+
+      if(isInShadow)
+      {
+         break;
+      }
+   }
+
+   return isInShadow;
+}

@@ -133,6 +133,19 @@ void Vector3D::multiplyByConstant(double constant)
    setZ(z_ * constant);
 }
 
+Vector3D Vector3D::calculateReflectionVector(const Vector3D& normalVector, const Vector3D& incomingVector)
+{
+   Vector3D reflection = incomingVector;
+   double nDotIncomingVector = reflection.dotProduct(normalVector);
+   nDotIncomingVector *= 2;
+   Vector3D tempVector = normalVector;
+   tempVector.multiplyByConstant(nDotIncomingVector);
+   reflection = tempVector - reflection;
+   reflection.normalizeVector();
+
+   return reflection;
+}
+
 double Vector3D::x() const
 {
    return x_;

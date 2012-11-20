@@ -26,20 +26,18 @@ Intersection Sphere::intersects(Ray& ray)
 {
    Vector3D c(ray.startPoint(), center_);
    double cDotDirection = ray.directionVector().dotProduct(c);
-   if(cDotDirection < 0)
-   {
-      cDotDirection *= 0;
-   }
    double value = (cDotDirection*cDotDirection) - (c.magnitude()*c.magnitude()) + (radius_*radius_);
+
    double sqrtValue = sqrt(value);
 
    Intersection intersection;
    intersection.objectId = shapeId_;
    intersection.valid = false;
-   if(ray.fromObjectId() == shapeId_)
+   if(value < 0)
    {
       return intersection;
    }
+
    //One solution Exists
    if(value == 0)
    {

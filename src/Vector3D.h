@@ -35,6 +35,7 @@ public:
    double magnitude();
    void normalizeVector();
    void multiplyByConstant(double constant);
+   static Vector3D calculateReflectionVector(const Vector3D& normalVector, const Vector3D& incomingVector);
 
    double x() const;
    double y() const;
