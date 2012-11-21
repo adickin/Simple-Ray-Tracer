@@ -36,7 +36,7 @@ Colour Light::ambientLight(Intersection& intersection)
 Colour Light::diffuseLight(Intersection& intersection)
 {
    Colour diffuseColour = lightColour_ * intersection.material.diffuse;
-   Vector3D lightVector(location_, intersection.intersectionPointClosest);
+   Vector3D lightVector(intersection.intersectionPointClosest, location_);
    lightVector.normalizeVector();
    double nDotLight = intersection.normal.dotProduct(lightVector);
    if(nDotLight < 0)
@@ -52,7 +52,7 @@ Colour Light::specularLight(Intersection& intersection)
 {
    Colour specularColour = lightColour_ * intersection.material.specular;
 
-   Vector3D lightVector(location_, intersection.intersectionPointClosest);
+   Vector3D lightVector(intersection.intersectionPointClosest, location_);
    lightVector.normalizeVector();
 
    Vector3D reflection = Vector3D::calculateReflectionVector(intersection.normal, lightVector);

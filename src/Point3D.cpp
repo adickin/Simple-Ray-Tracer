@@ -8,6 +8,7 @@
 */
 
 #include "Point3D.h"
+#include <QObject>
 
 Point3D::Point3D()
 {
@@ -21,6 +22,15 @@ Point3D::Point3D(double x, double y, double z)
    x_ = x;
    y_ = y;
    z_ = z;
+}
+
+bool Point3D::operator==(const Point3D &rhs)
+{
+   bool equal = true;
+   equal &= qFuzzyCompare(1 + x_, 1 + rhs.x());
+   equal &= qFuzzyCompare(1 + y_, 1 + rhs.y());
+   equal &= qFuzzyCompare(1 + z_, 1 + rhs.z());
+   return equal;
 }
 
 Point3D::~Point3D()

@@ -140,7 +140,7 @@ Vector3D Vector3D::calculateReflectionVector(const Vector3D& normalVector, const
    nDotIncomingVector *= 2;
    Vector3D tempVector = normalVector;
    tempVector.multiplyByConstant(nDotIncomingVector);
-   reflection = tempVector - reflection;
+   reflection = reflection - tempVector;
    reflection.normalizeVector();
 
    return reflection;

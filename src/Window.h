@@ -36,12 +36,16 @@ public:
    Window(QWidget *parent = NULL);
    ~Window();
 
-public:
+public slots:
+   void resetImage();
+   void updateLabel();
+
+signals:
+   void start();
 
 private://methods
    void interfaceSetup();
    void setupSignalsAndSlots();
-   void resetImage();
 
 private slots://members
 

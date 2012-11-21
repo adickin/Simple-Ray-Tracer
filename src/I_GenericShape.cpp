@@ -69,6 +69,9 @@ I_GenericShape::I_GenericShape()
 
    shapeMaterial_.shinyness = 25.6;
 
+   shapeMaterial_.localIllumination = 0.7;
+   shapeMaterial_.reflectedIllumination = 0.3;
+
    shapeId_ = ++shapeCount;
 }
 

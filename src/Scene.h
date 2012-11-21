@@ -12,6 +12,7 @@
 
 #include <QList>
 #include <QImage>
+#include <QObject>
 #include "Point3D.h"
 #include "Vector3D.h"
 #include "Light.h"
@@ -21,22 +22,26 @@ class Colour;
 
 #include "I_GenericShape.h"
 
-class Scene
+class Scene : public QObject
 {
+   Q_OBJECT
 
 public:
-   Scene();
+   Scene(QObject* parent = NULL);
    ~Scene();
 
    void drawScene();
    Colour trace(Ray& ray, int depth);
    void setImage(QImage* image);
+
+signals:
+   void imageChanged();
    
 
 private:
    Colour getPixelColour(Intersection& intersection);
    Intersection getClosestIntersection(QList<Intersection>& intersections);
-   bool isPointInShadow(Intersection& intersection);
+   bool isPointInShadow(Intersection& intersection, Light* light);
 
 private:
    QList<I_GenericShape*> shapes_;
@@ -58,7 +63,8 @@ private:
    QImage* image_;
 
    //Light
-   Light* lightOne_;
+   QList<Light*> lights_;
+   //Light* lightOne_;
 
 };
 

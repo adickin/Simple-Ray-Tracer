@@ -19,9 +19,12 @@
 
 struct Material
 {
-   Colour specular;
-   Colour diffuse;
    Colour ambient;
+   Colour diffuse;
+   Colour specular;
+
+   double localIllumination;
+   double reflectedIllumination;
    double shinyness;
    Colour emission;
 };
