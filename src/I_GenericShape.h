@@ -58,8 +58,7 @@ public:
 
    void setMaterialChrome();
    void setMaterialBronze();
-
-   double quadraticFormula(double b, double a, double c);
+   void setMaterialBlue();
 
    virtual Intersection intersects(Ray& ray) = 0;
 

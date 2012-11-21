@@ -149,43 +149,23 @@ void I_GenericShape::setMaterialBronze()
    shapeMaterial_.shinyness = 25.6;
 }
 
-/*
-***************************************************************
-*
-*   Does the quadratic formula, returns the smallest value calculated
-*   unless it is negative.
-*
-***************************************************************
-*/
-double quadraticFormula(double b, double a, double c)
+void I_GenericShape::setMaterialBlue()
 {
-   double plusT = (-b + sqrt((b*b) + (4*a*c)))/(2*a);
-   double negativeT = (-b - sqrt((b*b) + (4*a*c)))/(2*a);
+   shapeMaterial_.ambient.setRed(0.0);
+   shapeMaterial_.ambient.setGreen(0.0);
+   shapeMaterial_.ambient.setBlue(0.0);
 
-   if(plusT < 0)
-   {
-      if(negativeT > 0)
-      {
-         return negativeT;
-      }
-   }
-   else if(negativeT < 0)
-   {
-      if(plusT > 0)
-      {
-         return plusT;
-      }
-   }
-   else if(plusT > negativeT)
-   {
-      return negativeT;
-   }
-   else if(negativeT > plusT)
-   {
-      return plusT;
-   }
+   shapeMaterial_.diffuse.setRed(0.0);
+   shapeMaterial_.diffuse.setGreen(0.0);
+   shapeMaterial_.diffuse.setBlue(1.0);
 
-   return -1;
-   
+   shapeMaterial_.specular.setRed(0.0225);
+   shapeMaterial_.specular.setGreen(0.0225);
+   shapeMaterial_.specular.setBlue(0.0225);
 
+   shapeMaterial_.emission.setRed(0);
+   shapeMaterial_.emission.setGreen(0.0);
+   shapeMaterial_.emission.setBlue(0);
+
+   shapeMaterial_.shinyness = 55;
 }

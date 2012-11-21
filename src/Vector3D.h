@@ -30,7 +30,7 @@ public:
    Vector3D operator-(const Vector3D &rhs);
    Vector3D& operator=(const Vector3D &rhs);
 
-   void crossProduct(const Vector3D* vector);
+   Vector3D crossProduct(const Vector3D& vector);
    double dotProduct(const Vector3D& vector);
    double magnitude();
    void normalizeVector();

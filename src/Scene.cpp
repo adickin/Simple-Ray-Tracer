@@ -9,6 +9,7 @@
 
 #include "Scene.h"
 #include "Sphere.h"
+#include "Plane.h"
 #include "Point3D.h"
 #include "Vector3D.h"
 #include "Light.h"
@@ -21,23 +22,23 @@ Scene::Scene(QObject* parent)
    shapes_.push_back(new Sphere(point, 50));
    shapes_.at(0)->setMaterialChrome();
 
-   point.setX(75);
-   point.setY(0);
-   point.setZ(0);
-   shapes_.push_back(new Sphere(point, 50));
-   //shapes_.at(1)->setMaterialChrome();
+    point.setX(75);
+    point.setY(0);
+    point.setZ(0);
+    shapes_.push_back(new Sphere(point, 50));
+    //shapes_.at(1)->setMaterialChrome();
 
-   point.setX(0);
-   point.setY(-100);
-   point.setZ(0);
-   shapes_.push_back(new Sphere(point, 50));
-   shapes_.at(2)->setMaterialChrome();
+   // point.setX(0);
+   // point.setY(-100);
+   // point.setZ(0);
+   // shapes_.push_back(new Sphere(point, 50));
+   // shapes_.at(2)->setMaterialChrome();
 
-   point.setX(20);
-   point.setY(0);
-   point.setZ(75);
-   shapes_.push_back(new Sphere(point, 25));
-   //shapes_.at(2)->setMaterialChrome();
+    point.setX(0);
+    point.setY(-300);
+    point.setZ(0);
+    shapes_.push_back(new Plane(point));
+    shapes_.at(2)->setMaterialBlue();
 
    cameraLocation_.setX(0);
    cameraLocation_.setY(0);
@@ -57,15 +58,15 @@ Scene::Scene(QObject* parent)
    z_ = cameraLocation_.z();
 
    //Make a Light
-   Point3D lightLocation(200, 0, 100);
+   Point3D lightLocation(0, 0, 100);
    Light* lightOne;
    lightOne = new Light(lightLocation, Colour(1.0, 1.0, 1.0));
    lights_ << lightOne;
 
-   Point3D lightLocation2(-200, 0, 100);
-   Light* lightTwo;
-   lightTwo = new Light(lightLocation2, Colour(1.0, 0.0, 0.0));
-   lights_ << lightTwo;  
+   // Point3D lightLocation2(-200, 0, 100);
+   // Light* lightTwo;
+   // lightTwo = new Light(lightLocation2, Colour(1.0, 0.0, 0.0));
+   // lights_ << lightTwo;  
 }
 
 Scene::~Scene()
@@ -165,26 +166,41 @@ Colour Scene::getPixelColour(Intersection& intersection)
 */
 Intersection Scene::getClosestIntersection(QList<Intersection>& intersections)
 {
-      Intersection tempIntersection;
-      tempIntersection.valid = false;
-      tempIntersection.distanceFromCamera = 0.0;
-      for(int i = 0; i < intersections.size(); i++)
-      {
-         if(intersections[i].valid)
-         {
-            if(!tempIntersection.valid && !qFuzzyCompare(1.0, 1 + intersections[i].distanceFromCamera))
-            {
-               tempIntersection = intersections[i];
-            }
-            else if(!qFuzzyCompare(1.0, 1 + intersections[i].distanceFromCamera) &&
-               tempIntersection.distanceFromCamera > intersections[i].distanceFromCamera)
-            {
-               tempIntersection = intersections[i];
-            }  
+   Intersection tempIntersection;
+   tempIntersection.valid = false;
+   tempIntersection.distanceFromCamera = 0.0;
 
+   foreach(Intersection intersection, intersections)
+   {
+      if(intersection.valid)
+      {
+         if(!tempIntersection.valid)
+         {
+            tempIntersection = intersection;
+         }
+         else if(intersection.distanceFromCamera < tempIntersection.distanceFromCamera)
+         {
+            tempIntersection = intersection;
          }
       }
-      return tempIntersection;
+   }
+      // for(int i = 0; i < intersections.size(); i++)
+      // {
+      //    if(intersections[i].valid)
+      //    {
+      //       if(!tempIntersection.valid && !qFuzzyCompare(1.0, 1 + intersections[i].distanceFromCamera))
+      //       {
+      //          tempIntersection = intersections[i];
+      //       }
+      //       else if(!qFuzzyCompare(1.0, 1 + intersections[i].distanceFromCamera) &&
+      //          tempIntersection.distanceFromCamera > intersections[i].distanceFromCamera)
+      //       {
+      //          tempIntersection = intersections[i];
+      //       }  
+
+      //    }
+      // }
+   return tempIntersection;
 }
 
 bool Scene::isPointInShadow(Intersection& intersection, Light* light)

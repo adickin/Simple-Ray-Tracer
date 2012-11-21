@@ -92,15 +92,13 @@ double Vector3D::dotProduct(const Vector3D& vector)
 *
 ***************************************************************
 */
-void Vector3D::crossProduct(const Vector3D* vector)
+Vector3D Vector3D::crossProduct(const Vector3D& vector)
 {
-   double tempX = ((y_ * vector->z_) - (z_ * vector->y_));
-   double tempY = ((z_ * vector->x_) - (x_ * vector->z_));
-   double tempZ = ((x_ * vector->y_) - (y_ * vector->x_));
+   double tempX = ((y_ * vector.z_) - (z_ * vector.y_));
+   double tempY = ((z_ * vector.x_) - (x_ * vector.z_));
+   double tempZ = ((x_ * vector.y_) - (y_ * vector.x_));
 
-   x_ = tempX;
-   y_ = tempY;
-   z_ = tempZ;
+   return Vector3D(tempX, tempY, tempZ);
 }
 
 double Vector3D::magnitude()

@@ -33,6 +33,11 @@ bool Point3D::operator==(const Point3D &rhs)
    return equal;
 }
 
+Point3D Point3D::operator-(const Point3D& rhs)
+{
+   return Point3D(x_ - rhs.x(), y_ - rhs.y(), z_ - rhs.z());
+}
+
 Point3D::~Point3D()
 {
 

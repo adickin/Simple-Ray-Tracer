@@ -17,6 +17,7 @@ public:
    Point3D();
    Point3D(double x, double y, double z);
    bool operator==(const Point3D &rhs);
+   Point3D operator-(const Point3D& rhs);
    ~Point3D();
 
    double x() const;
