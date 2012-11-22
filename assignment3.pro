@@ -25,6 +25,7 @@ HEADERS +=  src/Window.h \
             src/Sphere.h \
             src/Plane.h \
             src/Triangle.h \
+            src/Quad.h \
             src/Ray.h \
             src/Light.h
 
@@ -40,6 +41,7 @@ SOURCES +=  src/main.cpp \
             src/Sphere.cpp \
             src/Plane.cpp \
             src/Triangle.cpp \
+            src/Quad.cpp \
             src/Ray.cpp \
             src/Light.cpp
 

@@ -18,7 +18,7 @@
 class Plane : public I_GenericShape
 {
 public:
-   Plane();
+   Plane(Point3D one, Point3D two, Point3D three);
    ~Plane();
 
    virtual Intersection intersects(Ray& ray);

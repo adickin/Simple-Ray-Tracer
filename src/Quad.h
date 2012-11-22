@@ -7,18 +7,23 @@
 *********************************************************************
 */
 
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
+#ifndef QUAD_H
+#define QUAD_H
 
-#include "Plane.h"
+#include "I_GenericShape.h"
+#include "Triangle.h"
 
-class Triangle : public Plane
+class Quad : public I_GenericShape
 {
 public:
-   Triangle(Point3D one, Point3D two, Point3D three);
-   ~Triangle();
+   Quad(Point3D one, Point3D two, Point3D three, Point3D four);
+   ~Quad();
 
    virtual Intersection intersects(Ray& ray);
+
+private:
+   Triangle triangleOne_;
+   Triangle triangleTwo_;
 };
 
 #endif

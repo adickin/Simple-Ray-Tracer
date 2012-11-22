@@ -11,6 +11,7 @@
 #include "Sphere.h"
 #include "Plane.h"
 #include "Triangle.h"
+#include "Quad.h"
 #include "Point3D.h"
 #include "Vector3D.h"
 #include "Light.h"
@@ -21,55 +22,59 @@ Scene::Scene(QObject* parent)
 {
    Point3D point(-50, 75, 0);
    shapes_.push_back(new Sphere(point, 50));
-   shapes_.at(0)->setMaterialChrome();
+   shapes_.at(0)->setMaterialBlue();
 
    Point3D point2(50, 75, 0);
    shapes_.push_back(new Sphere(point2, 50));
-   shapes_.at(1)->setMaterialChrome();
+   shapes_.at(1)->setMaterialBlue();
 
    Point3D point3(0, 50, 0);
    shapes_.push_back(new Sphere(point3, 25));
-   shapes_.at(2)->setMaterialChrome();
+   shapes_.at(2)->setMaterialBronze();
 
    Point3D point4(0, 25, 0);
    shapes_.push_back(new Sphere(point4, 25));
-   shapes_.at(3)->setMaterialChrome();
+   shapes_.at(3)->setMaterialBronze();
 
    Point3D point5(0, 0, 0);
    shapes_.push_back(new Sphere(point5, 25));
-   shapes_.at(4)->setMaterialChrome();
+   shapes_.at(4)->setMaterialBronze();
 
    Point3D point6(0, -25, 0);
    shapes_.push_back(new Sphere(point6, 25));
-   shapes_.at(5)->setMaterialChrome();
+   shapes_.at(5)->setMaterialBronze();
 
    Point3D point7(0, -50, 0);
    shapes_.push_back(new Sphere(point7, 25));
-   shapes_.at(6)->setMaterialChrome();
+   shapes_.at(6)->setMaterialBronze();
 
    Point3D point8(0, -75, 0);
    shapes_.push_back(new Sphere(point8, 25));
-   shapes_.at(7)->setMaterialChrome();
+   shapes_.at(7)->setMaterialBronze();
 
    Point3D point9(0, -100, 0);
    shapes_.push_back(new Sphere(point9, 25));
-   shapes_.at(8)->setMaterialChrome();
+   shapes_.at(8)->setMaterialBronze();
 
    Point3D point10(0, -125, 0);
-   shapes_.push_back(new Sphere(point10, 25));
-   shapes_.at(9)->setMaterialChrome();
+   shapes_.push_back(new Sphere(point10, 30));
+   shapes_.at(9)->setMaterialBronze();
 
-   // point.setX(0);
-   // point.setY(-100);
-   // point.setZ(0);
-   // shapes_.push_back(new Sphere(point, 50));
-   // shapes_.at(2)->setMaterialChrome();
+   Point3D topLeft(-100, 200, -100);
+   Point3D topRight(200, 200, -100);
+   Point3D bottomRight(200, -200, -100);
+   Point3D bottomLeft(-100, -200, -100);
 
-    // point.setX(0);
-    // point.setY(-300);
-    // point.setZ(0);
-    // shapes_.push_back(new Triangle());
-    //shapes_.at(2)->setMaterialBlue();
+   shapes_.push_back(new Quad(topLeft, topRight, bottomRight, bottomLeft));
+   shapes_.at(10)->setMaterialChrome();
+
+   Point3D topLeft2(-5, -135, 40);
+   Point3D topRight2(5, -135, 40);
+   Point3D bottomRight2(5, -155, 20);
+   Point3D bottomLeft2(-5, -155, 20);
+
+   shapes_.push_back(new Quad(topLeft2, topRight2, bottomRight2, bottomLeft2));
+   shapes_.at(11)->setMaterialBlue();
 
    cameraLocation_.setX(0);
    cameraLocation_.setY(0);
@@ -89,19 +94,19 @@ Scene::Scene(QObject* parent)
    z_ = cameraLocation_.z();
 
    //Make a Light
-   Point3D lightLocation(65, 75, 150);
+   Point3D lightLocation(-65, 75, 150);
    Light* lightOne;
-   lightOne = new Light(lightLocation, Colour(0.0, 1.0, 0.0));
+   lightOne = new Light(lightLocation, Colour(0.1, 1.0, 0.2));
    lights_ << lightOne;
 
-   Point3D lightLocation2(-65, 75, 150);
+   Point3D lightLocation2(-65, 0, 150);
    Light* lightTwo;
-   lightTwo = new Light(lightLocation2, Colour(1.0, 0.0, 0.0));
+   lightTwo = new Light(lightLocation2, Colour(1.0, 0.7, 0.0));
    lights_ << lightTwo;  
 
-   Point3D lightLocation3(0, -75, 150);
+   Point3D lightLocation3(-65, -75, 150);
    Light* lightThree;
-   lightThree = new Light(lightLocation3, Colour(0.0, 0.0, 1.0));
+   lightThree = new Light(lightLocation3, Colour(0.0, 0.2, 1.0));
    lights_ << lightThree;  
 }
 
@@ -117,6 +122,7 @@ void Scene::setImage(QImage* image)
 
 void Scene::drawScene()
 {
+   fprintf(stderr, "starting\n");
    Ray ray;
    for(int x = 0; x < imageWidth_; x++)
    {
@@ -134,7 +140,6 @@ void Scene::drawScene()
 
          image_->setPixel(x, y, qRgb(colour.red()*255, colour.green()*255, colour.blue()*255));
          emit imageChanged();
-         QCoreApplication::processEvents();
       }
    }
 }

@@ -24,7 +24,7 @@
 Window::Window(QWidget *parent) 
 :QMainWindow(parent) 
 {
-   theScene_ = new Scene();
+   
    interfaceSetup();
    setupSignalsAndSlots();
 
@@ -36,7 +36,10 @@ Window::~Window()
 
 void Window::updateLabel()
 {
+   //fprintf(stderr, "getting here\n");
    imageLabel_->setPixmap(QPixmap::fromImage(*image_, Qt::AutoColor));
+   imageLabel_->repaint();
+   QCoreApplication::processEvents();
 }
 
 /*
@@ -88,21 +91,34 @@ void Window::interfaceSetup()
 */
 void Window::setupSignalsAndSlots()
 {
-   
+   connect(theScene_, SIGNAL(imageChanged()), this, SLOT(updateLabel()));
+   connect(saveAction_, SIGNAL(triggered(bool)), this, SLOT(resetImage()));
+   connect(quitAction_, SIGNAL(triggered(bool)), this, SLOT(exitApplication(bool)));
 }
 
 void Window::resetImage()
 {
+   theScene_ = new Scene();
    if(image_ != NULL)
    {
-      delete image_;
+      for(int x = 0; x < 640; x++)
+      {
+         for(int y = 0; y < 480; y++)
+         {
+            image_->setPixel(x, y, qRgb(0, 0, 0));
+         }
+      }
    }
-
-   image_ = new QImage(640, 480, QImage::Format_RGB32);
+   else
+   {
+     image_ = new QImage(640, 480, QImage::Format_RGB32);
+   }
    theScene_->setImage(image_);
    //this->show();
+   imageLabel_->setPixmap(QPixmap::fromImage(*image_, Qt::AutoColor));
    theScene_->drawScene();
    imageLabel_->setPixmap(QPixmap::fromImage(*image_, Qt::AutoColor));
+   
    
 }
 

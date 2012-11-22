@@ -9,8 +9,8 @@
 
 #include "Triangle.h"
 
-Triangle::Triangle()
-:Plane()
+Triangle::Triangle(Point3D one, Point3D two, Point3D three)
+:Plane(one, two, three)
 {
 
 }
