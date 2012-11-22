@@ -89,6 +89,7 @@ void Sphere::fillIntersection(Intersection& intersection, Ray& ray, double dista
    intersection.intersectionPointClosest = intersectionPoint;
    intersection.material = shapeMaterial_;
    intersection.distanceFromCamera = distance;
+   intersection.objectId = shapeId_;
 
    Vector3D normal(center_, intersectionPoint);
    normal.normalizeVector();

@@ -28,6 +28,7 @@ public:
    Vector3D(const Point3D& one, const Point3D& two);
    ~Vector3D();
    Vector3D operator-(const Vector3D &rhs);
+   Vector3D operator+(const Vector3D &rhs);
    Vector3D& operator=(const Vector3D &rhs);
 
    Vector3D crossProduct(const Vector3D& vector);

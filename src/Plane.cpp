@@ -11,20 +11,20 @@
 #include "math.h"
 #include <QObject>
 
-Plane::Plane(Point3D& centerLocation)
+Plane::Plane()
 :I_GenericShape()
 {
    one_.setX(-20);
-   one_.setY(-100);
+   one_.setY(0);
    one_.setZ(-150);
 
-   two_.setX(20);
-   two_.setY(-100);
-   two_.setZ(-150);
+   two_.setX(0);
+   two_.setY(-200);
+   two_.setZ(-100);
 
-   three_.setX(0);
-   three_.setY(-100);
-   three_.setZ(-200);
+   three_.setX(300);
+   three_.setY(-200);
+   three_.setZ(-100);
 
    Vector3D tempOne(two_, one_);
    Vector3D tempTwo(three_, one_);
@@ -41,26 +41,15 @@ Plane::~Plane()
 
 Intersection Plane::intersects(Ray& ray)
 {
-
-   // Vector3D temp(ray.startPoint(), one_);
-   // double plDotN = temp.dotProduct(normal_);
-
-   // double lDotN = ray.directionVector().dotProduct(normal_);
-
-   // double distance = plDotN/lDotN;
-
-  
-   double tn = normal_.dotProduct(ray.directionVector());
+   double lDotN = ray.directionVector().dotProduct(normal_);
    Vector3D normal = normal_;
-   if(tn < 0)
+   if(lDotN < 0.0)
    {
       normal.multiplyByConstant(-1);
    }
-
-   double temp = Vector3D(ray.startPoint().x(), ray.startPoint().y(),ray.startPoint().z()).dotProduct(normal);
-   temp += d_;
-
-   double distance = -temp/normal.dotProduct(ray.directionVector());
+   Vector3D temp(ray.startPoint(), one_);
+   double plDotN = temp.dotProduct(normal_);
+   double distance = plDotN/lDotN;
 
    Intersection intersection;
    intersection.distanceFromCamera = 0.0;

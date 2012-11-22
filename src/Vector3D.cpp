@@ -69,6 +69,15 @@ Vector3D Vector3D::operator-(const Vector3D &rhs)
    return returnedVector;
 }
 
+Vector3D Vector3D::operator+(const Vector3D &rhs)
+{
+   Vector3D returnedVector;
+   returnedVector.setX(x_ + rhs.x());
+   returnedVector.setY(y_ + rhs.y());
+   returnedVector.setZ(z_ + rhs.z());
+   return returnedVector;
+}
+
 Vector3D& Vector3D::operator=(const Vector3D &rhs)
 {
    x_ = rhs.x();

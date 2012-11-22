@@ -10,6 +10,7 @@
 #include "Scene.h"
 #include "Sphere.h"
 #include "Plane.h"
+#include "Triangle.h"
 #include "Point3D.h"
 #include "Vector3D.h"
 #include "Light.h"
@@ -18,15 +19,45 @@
 Scene::Scene(QObject* parent)
 :QObject(parent)
 {
-   Point3D point(-75, 0, 0);
+   Point3D point(-50, 75, 0);
    shapes_.push_back(new Sphere(point, 50));
    shapes_.at(0)->setMaterialChrome();
 
-    point.setX(75);
-    point.setY(0);
-    point.setZ(0);
-    shapes_.push_back(new Sphere(point, 50));
-    //shapes_.at(1)->setMaterialChrome();
+   Point3D point2(50, 75, 0);
+   shapes_.push_back(new Sphere(point2, 50));
+   shapes_.at(1)->setMaterialChrome();
+
+   Point3D point3(0, 50, 0);
+   shapes_.push_back(new Sphere(point3, 25));
+   shapes_.at(2)->setMaterialChrome();
+
+   Point3D point4(0, 25, 0);
+   shapes_.push_back(new Sphere(point4, 25));
+   shapes_.at(3)->setMaterialChrome();
+
+   Point3D point5(0, 0, 0);
+   shapes_.push_back(new Sphere(point5, 25));
+   shapes_.at(4)->setMaterialChrome();
+
+   Point3D point6(0, -25, 0);
+   shapes_.push_back(new Sphere(point6, 25));
+   shapes_.at(5)->setMaterialChrome();
+
+   Point3D point7(0, -50, 0);
+   shapes_.push_back(new Sphere(point7, 25));
+   shapes_.at(6)->setMaterialChrome();
+
+   Point3D point8(0, -75, 0);
+   shapes_.push_back(new Sphere(point8, 25));
+   shapes_.at(7)->setMaterialChrome();
+
+   Point3D point9(0, -100, 0);
+   shapes_.push_back(new Sphere(point9, 25));
+   shapes_.at(8)->setMaterialChrome();
+
+   Point3D point10(0, -125, 0);
+   shapes_.push_back(new Sphere(point10, 25));
+   shapes_.at(9)->setMaterialChrome();
 
    // point.setX(0);
    // point.setY(-100);
@@ -34,11 +65,11 @@ Scene::Scene(QObject* parent)
    // shapes_.push_back(new Sphere(point, 50));
    // shapes_.at(2)->setMaterialChrome();
 
-    point.setX(0);
-    point.setY(-300);
-    point.setZ(0);
-    shapes_.push_back(new Plane(point));
-    shapes_.at(2)->setMaterialBlue();
+    // point.setX(0);
+    // point.setY(-300);
+    // point.setZ(0);
+    // shapes_.push_back(new Triangle());
+    //shapes_.at(2)->setMaterialBlue();
 
    cameraLocation_.setX(0);
    cameraLocation_.setY(0);
@@ -58,15 +89,20 @@ Scene::Scene(QObject* parent)
    z_ = cameraLocation_.z();
 
    //Make a Light
-   Point3D lightLocation(0, 0, 100);
+   Point3D lightLocation(65, 75, 150);
    Light* lightOne;
-   lightOne = new Light(lightLocation, Colour(1.0, 1.0, 1.0));
+   lightOne = new Light(lightLocation, Colour(0.0, 1.0, 0.0));
    lights_ << lightOne;
 
-   // Point3D lightLocation2(-200, 0, 100);
-   // Light* lightTwo;
-   // lightTwo = new Light(lightLocation2, Colour(1.0, 0.0, 0.0));
-   // lights_ << lightTwo;  
+   Point3D lightLocation2(-65, 75, 150);
+   Light* lightTwo;
+   lightTwo = new Light(lightLocation2, Colour(1.0, 0.0, 0.0));
+   lights_ << lightTwo;  
+
+   Point3D lightLocation3(0, -75, 150);
+   Light* lightThree;
+   lightThree = new Light(lightLocation3, Colour(0.0, 0.0, 1.0));
+   lights_ << lightThree;  
 }
 
 Scene::~Scene()
@@ -184,22 +220,6 @@ Intersection Scene::getClosestIntersection(QList<Intersection>& intersections)
          }
       }
    }
-      // for(int i = 0; i < intersections.size(); i++)
-      // {
-      //    if(intersections[i].valid)
-      //    {
-      //       if(!tempIntersection.valid && !qFuzzyCompare(1.0, 1 + intersections[i].distanceFromCamera))
-      //       {
-      //          tempIntersection = intersections[i];
-      //       }
-      //       else if(!qFuzzyCompare(1.0, 1 + intersections[i].distanceFromCamera) &&
-      //          tempIntersection.distanceFromCamera > intersections[i].distanceFromCamera)
-      //       {
-      //          tempIntersection = intersections[i];
-      //       }  
-
-      //    }
-      // }
    return tempIntersection;
 }
 

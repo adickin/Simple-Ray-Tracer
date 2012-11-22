@@ -18,12 +18,12 @@
 class Plane : public I_GenericShape
 {
 public:
-   Plane(Point3D& centerLocation);
+   Plane();
    ~Plane();
 
    virtual Intersection intersects(Ray& ray);
 
-private:
+protected:
    void fillIntersection(Intersection& intersection,
                         Ray& ray, double distance);
 

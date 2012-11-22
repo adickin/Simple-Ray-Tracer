@@ -71,7 +71,7 @@ void Window::interfaceSetup()
    sideBar_ = new SideBar(centralWidget_);
 
    imageLabel_ = new QLabel(centralWidget_);
-   //resetImage();
+   resetImage();
 
    
    horizontalLayout_->addWidget(sideBar_);
@@ -100,7 +100,7 @@ void Window::resetImage()
 
    image_ = new QImage(640, 480, QImage::Format_RGB32);
    theScene_->setImage(image_);
-   this->show();
+   //this->show();
    theScene_->drawScene();
    imageLabel_->setPixmap(QPixmap::fromImage(*image_, Qt::AutoColor));
    
