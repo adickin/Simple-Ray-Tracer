@@ -1,0 +1,17 @@
+!Quad:
+Point(-100, 100, 0)
+Point(200, 100, 0)
+Point(200, -100, 0)
+Point(-100, -100, 0)
+Material(CHROME)
+
+Triangle:
+Point(-100, 100, 0)
+Point(200, -100, 0)
+Point(200, 100, 0)
+Material(CHROME)
+
+!Sphere:
+Point(100, 100, 0)
+Radius(50)
+Material(BLUE)

@@ -24,9 +24,6 @@ public:
    virtual Intersection intersects(Ray& ray);
 
 protected:
-   void fillIntersection(Intersection& intersection,
-                        Ray& ray, double distance);
-
    Point3D one_;
    Point3D two_;
    Point3D three_;

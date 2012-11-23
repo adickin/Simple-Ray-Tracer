@@ -32,12 +32,6 @@ Plane::~Plane()
 Intersection Plane::intersects(Ray& ray)
 {
    double lDotN = ray.directionVector().dotProduct(normal_);
-   // Vector3D normal = normal_;
-   // if(lDotN < 0.0)
-   // {
-   //    normal_.multiplyByConstant(-1);
-   //    lDotN = ray.directionVector().dotProduct(normal_);
-   // }
    Vector3D temp(ray.startPoint(), one_);
    double plDotN = temp.dotProduct(normal_);
    double distance = plDotN/lDotN;
@@ -64,10 +58,4 @@ Intersection Plane::intersects(Ray& ray)
    }
 
    return intersection;
-}
-
-void Plane::fillIntersection(Intersection& intersection,
-                        Ray& ray, double distance)
-{
-
 }

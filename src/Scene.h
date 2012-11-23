@@ -16,6 +16,7 @@
 #include "Point3D.h"
 #include "Vector3D.h"
 #include "Light.h"
+#include "SceneGenerator.h"
 
 class Ray;
 class Colour;
@@ -33,18 +34,21 @@ public:
    void drawScene();
    Colour trace(Ray& ray, int depth);
    void setImage(QImage* image);
+   void loadScene(QString& fileName);
 
 signals:
-   void imageChanged();
+   void finishedDrawing();
    
 
 private:
    Colour getPixelColour(Intersection& intersection);
    Intersection getClosestIntersection(QList<Intersection>& intersections);
    bool isPointInShadow(Intersection& intersection, Light* light);
+//   Ray findRefractionRay(Ray& ray, Intersection& intersection);
 
 private:
    QList<I_GenericShape*> shapes_;
+   SceneGenerator generator_;
 
    //EYE
    Point3D cameraLocation_;
@@ -65,6 +69,8 @@ private:
    //Light
    QList<Light*> lights_;
    //Light* lightOne_;
+
+   double indexAir_;
 
 };
 

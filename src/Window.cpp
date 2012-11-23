@@ -24,7 +24,7 @@
 Window::Window(QWidget *parent) 
 :QMainWindow(parent) 
 {
-   
+   theScene_ = new Scene();
    interfaceSetup();
    setupSignalsAndSlots();
 
@@ -91,14 +91,15 @@ void Window::interfaceSetup()
 */
 void Window::setupSignalsAndSlots()
 {
-   connect(theScene_, SIGNAL(imageChanged()), this, SLOT(updateLabel()));
+   connect(theScene_, SIGNAL(finishedDrawing()), this, SLOT(updateLabel()));
+   connect(sideBar_->ui_.openSceneButton, SIGNAL(released())
+      , this, SLOT(openScene()));
    connect(saveAction_, SIGNAL(triggered(bool)), this, SLOT(resetImage()));
    connect(quitAction_, SIGNAL(triggered(bool)), this, SLOT(exitApplication(bool)));
 }
 
 void Window::resetImage()
 {
-   theScene_ = new Scene();
    if(image_ != NULL)
    {
       for(int x = 0; x < 640; x++)
@@ -113,13 +114,15 @@ void Window::resetImage()
    {
      image_ = new QImage(640, 480, QImage::Format_RGB32);
    }
+
    theScene_->setImage(image_);
-   //this->show();
-   imageLabel_->setPixmap(QPixmap::fromImage(*image_, Qt::AutoColor));
-   theScene_->drawScene();
-   imageLabel_->setPixmap(QPixmap::fromImage(*image_, Qt::AutoColor));
-   
-   
+}
+
+void Window::openScene()
+{
+   QString fileName = QFileDialog::getOpenFileName(this, QString("Select Scene"), QString("./")
+                     , QString("SCENES (*.scn *.SCN"));
+   theScene_->loadScene(fileName);
 }
 
 /*

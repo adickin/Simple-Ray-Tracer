@@ -20,17 +20,25 @@ public:
 
    void setStartPoint(const Point3D& point);
    void setDirectionVector(const Vector3D& vector);
+   void setFromObjectId(int objectId);
+   void setInsideObject(bool inside);
+   void setRefractionIndex(double refractionIndex);
 
    Point3D startPoint();
    Vector3D directionVector();
-
-   void setFromObjectId(int objectId);
    int fromObjectId();
+   bool insideObject();
+   double refractionIndex();
+
+   bool valid;
 
 private:
    Vector3D direction_;
    Point3D startPoint_;
    int fromObjectId_;
+   int insideObject_;
+   double refractionIndex_;
+
 
 };
 

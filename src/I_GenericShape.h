@@ -10,12 +10,12 @@
 #ifndef I_GENERICSHAPE_H
 #define I_GENERICSHAPE_H
 
-#include "Colour.h"
+#include <QString>
 
+#include "Colour.h"
 #include "Point3D.h"
 #include "Vector3D.h"
 #include "Ray.h"
-
 
 struct Material
 {
@@ -25,7 +25,9 @@ struct Material
 
    double localIllumination;
    double reflectedIllumination;
+   double refractedIllumination;
    double shinyness;
+   double refractionIndex;
    Colour emission;
 };
 
@@ -54,11 +56,12 @@ public:
    int shapeId();
 
    Material material();
-   void setMaterial(Material& colour);
+   void setMaterial(QString& material);
 
    void setMaterialChrome();
    void setMaterialBronze();
    void setMaterialBlue();
+   void setMaterialGlass();
 
    virtual Intersection intersects(Ray& ray) = 0;
 

@@ -27,7 +27,7 @@ Quad::Quad(Point3D one, Point3D two, Point3D three, Point3D four)
    ,triangleOne_(one, three, two)
    ,triangleTwo_(one, four, three)
 {
-
+   
 }
 
 Quad::~Quad()

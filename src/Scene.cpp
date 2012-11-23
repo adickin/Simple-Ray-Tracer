@@ -16,65 +16,12 @@
 #include "Vector3D.h"
 #include "Light.h"
 #include <QCoreApplication>
+#include "math.h"
 
 Scene::Scene(QObject* parent)
 :QObject(parent)
 {
-   Point3D point(-50, 75, 0);
-   shapes_.push_back(new Sphere(point, 50));
-   shapes_.at(0)->setMaterialBlue();
-
-   Point3D point2(50, 75, 0);
-   shapes_.push_back(new Sphere(point2, 50));
-   shapes_.at(1)->setMaterialBlue();
-
-   Point3D point3(0, 50, 0);
-   shapes_.push_back(new Sphere(point3, 25));
-   shapes_.at(2)->setMaterialBronze();
-
-   Point3D point4(0, 25, 0);
-   shapes_.push_back(new Sphere(point4, 25));
-   shapes_.at(3)->setMaterialBronze();
-
-   Point3D point5(0, 0, 0);
-   shapes_.push_back(new Sphere(point5, 25));
-   shapes_.at(4)->setMaterialBronze();
-
-   Point3D point6(0, -25, 0);
-   shapes_.push_back(new Sphere(point6, 25));
-   shapes_.at(5)->setMaterialBronze();
-
-   Point3D point7(0, -50, 0);
-   shapes_.push_back(new Sphere(point7, 25));
-   shapes_.at(6)->setMaterialBronze();
-
-   Point3D point8(0, -75, 0);
-   shapes_.push_back(new Sphere(point8, 25));
-   shapes_.at(7)->setMaterialBronze();
-
-   Point3D point9(0, -100, 0);
-   shapes_.push_back(new Sphere(point9, 25));
-   shapes_.at(8)->setMaterialBronze();
-
-   Point3D point10(0, -125, 0);
-   shapes_.push_back(new Sphere(point10, 30));
-   shapes_.at(9)->setMaterialBronze();
-
-   Point3D topLeft(-100, 200, -100);
-   Point3D topRight(200, 200, -100);
-   Point3D bottomRight(200, -200, -100);
-   Point3D bottomLeft(-100, -200, -100);
-
-   shapes_.push_back(new Quad(topLeft, topRight, bottomRight, bottomLeft));
-   shapes_.at(10)->setMaterialChrome();
-
-   Point3D topLeft2(-5, -135, 40);
-   Point3D topRight2(5, -135, 40);
-   Point3D bottomRight2(5, -155, 20);
-   Point3D bottomLeft2(-5, -155, 20);
-
-   shapes_.push_back(new Quad(topLeft2, topRight2, bottomRight2, bottomLeft2));
-   shapes_.at(11)->setMaterialBlue();
+   indexAir_ = 1.000029;
 
    cameraLocation_.setX(0);
    cameraLocation_.setY(0);
@@ -94,20 +41,20 @@ Scene::Scene(QObject* parent)
    z_ = cameraLocation_.z();
 
    //Make a Light
-   Point3D lightLocation(-65, 75, 150);
+   Point3D lightLocation(0, 0, 100);
    Light* lightOne;
-   lightOne = new Light(lightLocation, Colour(0.1, 1.0, 0.2));
+   lightOne = new Light(lightLocation, Colour(1.0, 1.0, 1.0));
    lights_ << lightOne;
 
-   Point3D lightLocation2(-65, 0, 150);
-   Light* lightTwo;
-   lightTwo = new Light(lightLocation2, Colour(1.0, 0.7, 0.0));
-   lights_ << lightTwo;  
+   // Point3D lightLocation2(-65, 0, 150);
+   // Light* lightTwo;
+   // lightTwo = new Light(lightLocation2, Colour(1.0, 0.7, 0.0));
+   // lights_ << lightTwo;  
 
-   Point3D lightLocation3(-65, -75, 150);
-   Light* lightThree;
-   lightThree = new Light(lightLocation3, Colour(0.0, 0.2, 1.0));
-   lights_ << lightThree;  
+   // Point3D lightLocation3(-65, -75, 150);
+   // Light* lightThree;
+   // lightThree = new Light(lightLocation3, Colour(1.0, 1.0, 1.0));
+   // lights_ << lightThree;  
 }
 
 Scene::~Scene()
@@ -118,6 +65,18 @@ Scene::~Scene()
 void Scene::setImage(QImage* image)
 {
    image_ = image;
+}
+
+void Scene::loadScene(QString& fileName)
+{
+   fprintf(stderr, "loading\n");
+   generator_.loadSceneFromFile(fileName);
+   fprintf(stderr, "finsihed loading\n");
+   shapes_.append(generator_.getSceneObjects());
+   fprintf(stderr, "shapes amount %d\n", shapes_.size());
+   drawScene();
+
+   emit finishedDrawing();
 }
 
 void Scene::drawScene()
@@ -135,11 +94,10 @@ void Scene::drawScene()
          
          ray.setDirectionVector(vector);
          ray.setStartPoint(cameraLocation_);
+         ray.setRefractionIndex(indexAir_);
 
          Colour colour = trace(ray, 0);
-
          image_->setPixel(x, y, qRgb(colour.red()*255, colour.green()*255, colour.blue()*255));
-         emit imageChanged();
       }
    }
 }
@@ -169,13 +127,14 @@ Colour Scene::trace(Ray& ray, int depth)
 
    Ray reflectionRay;
    Vector3D reflection = Vector3D::calculateReflectionVector(intersection.normal,
-                                     ray.directionVector());
+                                     ray.directionVector()); 
    reflectionRay.setStartPoint(intersection.intersectionPointClosest);
    reflectionRay.setDirectionVector(reflection);
    reflectionRay.setFromObjectId(intersection.objectId);
 
-   Colour reflectedColour = trace(reflectionRay, ++depth);
+   Colour reflectedColour = trace(reflectionRay, depth+1);
    reflectedColour.multiplyColourByConstant(intersection.material.reflectedIllumination);
+
    return localColour + reflectedColour;
 }
 
@@ -230,7 +189,6 @@ Intersection Scene::getClosestIntersection(QList<Intersection>& intersections)
 
 bool Scene::isPointInShadow(Intersection& intersection, Light* light)
 {
-   //return false;
    bool isInShadow = false;
    Ray ray;
    Vector3D shadowBeam(intersection.intersectionPointClosest, light->location());
@@ -256,3 +214,83 @@ bool Scene::isPointInShadow(Intersection& intersection, Light* light)
 
    return isInShadow;
 }
+
+// /*
+// ***************************************************************
+// *
+// *   
+// *
+// ***************************************************************
+// */
+// Ray Scene::findRefractionRay(Ray& ray, Intersection& intersection)
+// {
+//    double mediumOne;
+//    double mediumTwo;
+//    Vector3D refractedVector;
+//    if(ray.insideObject())
+//    {
+//       mediumOne = intersection.material.refractionIndex;
+//       mediumTwo = indexAir_;
+//    }
+//    else
+//    {
+//       mediumOne = indexAir_;
+//       mediumTwo = intersection.material.refractionIndex;
+//    }
+
+
+//    double n = mediumTwo/mediumOne;
+
+//    double cosI = intersection.normal.dotProduct(ray.directionVector());
+//    double sinT2 = n*n * (1.0 - cosI*cosI);
+
+//    bool valid = true;
+//    if(sinT2 > 1.0)
+//    {
+//       valid = false;
+//       fprintf(stderr, "TIR\n");
+//    }
+//    else
+//    {
+//       fprintf(stderr, "YAY\n");
+//       refractedVector = intersection.normal;
+//       Vector3D temp = ray.directionVector();
+//       temp.multiplyByConstant(n);
+//       refractedVector.multiplyByConstant(n + sqrt(1.0 - sinT2));
+//       refractedVector = temp - refractedVector;
+//    }
+
+//    Ray refractedRay;
+//    refractedRay.valid = valid;
+//    refractedRay.setDirectionVector(refractedVector);
+//    refractedRay.setStartPoint(intersection.intersectionPointClosest);
+//    refractedRay.setInsideObject(false);
+
+//    // double nDotL = intersection.normal.dotProduct(ray.directionVector());
+//    // double signNDotL = sin(nDotL);
+//    // double sqrtStuffMinusDotN = sqrt((1-n*n) + (nDotL*nDotL)*(n*n)) - nDotL*n;
+
+//    // Vector3D temp = intersection.normal;
+//    // temp.multiplyByConstant(signNDotL * sqrtStuffMinusDotN);
+
+//    // Vector3D temp2 = ray.directionVector();
+//    // temp2.multiplyByConstant(n);
+
+//    // refractedVector = temp + temp2;
+//    // refractedVector.normalizeVector();
+
+//    // Ray refractedRay;
+//    // refractedRay.setDirectionVector(refractedVector);
+//    // refractedRay.setStartPoint(intersection.intersectionPointClosest);
+//    // refractedRay.setFromObjectId(intersection.objectId);
+//    // if(ray.insideObject())
+//    // {
+//    //    refractedRay.setInsideObject(false);
+//    // }
+//    // else
+//    // {
+//    //    refractedRay.setInsideObject(true);
+//    // }
+
+//    return refractedRay;
+// }

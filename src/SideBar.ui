@@ -31,7 +31,22 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout"/>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QPushButton" name="randomizeSceneButton">
+     <property name="text">
+      <string>RANDOMIZE A SCENEEE</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="openSceneButton">
+     <property name="text">
+      <string>OPEN A SCENEEEEEEE</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

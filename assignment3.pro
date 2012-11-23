@@ -27,7 +27,8 @@ HEADERS +=  src/Window.h \
             src/Triangle.h \
             src/Quad.h \
             src/Ray.h \
-            src/Light.h
+            src/Light.h \
+            src/SceneGenerator.h
 
             
 SOURCES +=  src/main.cpp \
@@ -43,6 +44,7 @@ SOURCES +=  src/main.cpp \
             src/Triangle.cpp \
             src/Quad.cpp \
             src/Ray.cpp \
-            src/Light.cpp
+            src/Light.cpp \
+            src/SceneGenerator.cpp
 
 FORMS +=    src/SideBar.ui

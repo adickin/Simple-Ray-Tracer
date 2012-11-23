@@ -48,7 +48,7 @@ private://methods
    void setupSignalsAndSlots();
 
 private slots://members
-
+   void openScene();
    void exitApplication(bool exit);
 
 private:
