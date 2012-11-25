@@ -10,6 +10,13 @@
 #include "Light.h"
 #include "math.h"
 
+/*
+***************************************************************
+*
+* constructor that defines the lights location and colour.  
+*
+***************************************************************
+*/
 Light::Light(Point3D location, Colour colour)
 {
    location_ = location;
@@ -21,18 +28,39 @@ Light::~Light()
 
 }
 
+/*
+***************************************************************
+*
+*  function that returns the phong lighting colour at an intersection pont  
+*
+***************************************************************
+*/
 Colour Light::phongLighting(Intersection& intersection)
 {
    return ambientLight(intersection) + diffuseLight(intersection) +
       specularLight(intersection);
 }
 
+/*
+***************************************************************
+*
+*  function that returns the ambient lighting colour at an intersection pont  
+*
+***************************************************************
+*/
 Colour Light::ambientLight(Intersection& intersection)
 {
    Colour ambientColour = lightColour_ * intersection.material.ambient;
    return ambientColour;
 }
 
+/*
+***************************************************************
+*
+*  function that returns the diffuse lighting colour at an intersection pont  
+*
+***************************************************************
+*/
 Colour Light::diffuseLight(Intersection& intersection)
 {
    Colour diffuseColour = lightColour_ * intersection.material.diffuse;
@@ -48,6 +76,13 @@ Colour Light::diffuseLight(Intersection& intersection)
    return diffuseColour;
 }
 
+/*
+***************************************************************
+*
+*  function that returns the specular lighting colour at an intersection pont  
+*
+***************************************************************
+*/
 Colour Light::specularLight(Intersection& intersection)
 {
    Colour specularColour = lightColour_ * intersection.material.specular;
@@ -71,6 +106,13 @@ Colour Light::specularLight(Intersection& intersection)
    return specularColour;
 }
 
+/*
+***************************************************************
+*
+* returns the lights location.  
+*
+***************************************************************
+*/
 Point3D Light::location()
 {
    return location_;

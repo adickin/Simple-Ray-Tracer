@@ -11,6 +11,13 @@
 #include "math.h"
 #include <QObject>
 
+/*
+***************************************************************
+*
+* Constructor for a plane.  
+*
+***************************************************************
+*/
 Plane::Plane(Point3D one, Point3D two, Point3D three)
    :I_GenericShape()
    ,one_(one)
@@ -29,6 +36,14 @@ Plane::~Plane()
 
 }
 
+/*
+***************************************************************
+*
+* Function that determines if a ray intersects the plane.  If it
+* intersects then it returns a Intersection that is valid.  
+*
+***************************************************************
+*/
 Intersection Plane::intersects(Ray& ray)
 {
    double lDotN = ray.directionVector().dotProduct(normal_);
@@ -40,7 +55,7 @@ Intersection Plane::intersects(Ray& ray)
    intersection.distanceFromCamera = 0.0;
    intersection.valid = false;
    intersection.objectId = shapeId_;
-   if(distance > 0.01)
+   if(distance > 0.00001)
    {
       Point3D intersectionPoint;
       intersectionPoint.setX(ray.startPoint().x() + ray.directionVector().x()*distance);

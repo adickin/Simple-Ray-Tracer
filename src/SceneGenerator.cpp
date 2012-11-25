@@ -33,6 +33,14 @@ SceneGenerator::~SceneGenerator()
    lights_.clear();
 }
 
+/*
+***************************************************************
+*
+* Opens up the \a filename and loads each triangle, quad, sphere, and lights
+* into lists.  
+*
+***************************************************************
+*/
 void SceneGenerator::loadSceneFromFile(QString& filename)
 {
    objects_.clear();
@@ -64,6 +72,13 @@ void SceneGenerator::loadSceneFromFile(QString& filename)
    }
 }
 
+/*
+***************************************************************
+*
+* Makes a sphere, grabs the center point, radius and material from the file.  
+*
+***************************************************************
+*/
 I_GenericShape* SceneGenerator::makeSphere(QTextStream& in)
 {
    QString pointOneString = in.readLine();
@@ -77,6 +92,13 @@ I_GenericShape* SceneGenerator::makeSphere(QTextStream& in)
    return sphere;
 }
 
+/*
+***************************************************************
+*
+* Makes a triangle, grabs the 3 points and material from the file  
+*
+***************************************************************
+*/
 I_GenericShape* SceneGenerator::makeTriangle(QTextStream& in)
 {
    QString pointOneString = in.readLine();
@@ -93,6 +115,13 @@ I_GenericShape* SceneGenerator::makeTriangle(QTextStream& in)
    return triangle;
 }
 
+/*
+***************************************************************
+*
+* makes a quad, grabs the 4 points and material from the file  
+*
+***************************************************************
+*/
 I_GenericShape* SceneGenerator::makeQuad(QTextStream& in)
 {
    QString pointOneString = in.readLine();
@@ -111,6 +140,13 @@ I_GenericShape* SceneGenerator::makeQuad(QTextStream& in)
    return quad;
 }
 
+/*
+***************************************************************
+*
+* Makes a light, grabs the location and colour from the file  
+*
+***************************************************************
+*/
 Light* SceneGenerator::makeLight(QTextStream& in)
 {
    QString pointOneString = in.readLine();
@@ -124,6 +160,14 @@ Light* SceneGenerator::makeLight(QTextStream& in)
    return light;
 }
 
+/*
+***************************************************************
+*
+* helper function that makes a point for a shape/light if the syntax is correct
+* in the scn file.  
+*
+***************************************************************
+*/
 Point3D SceneGenerator::makePoint(QString& pointString)
 {
    pointString.replace(QString("Point("), QString(""), Qt::CaseInsensitive);
@@ -141,6 +185,13 @@ Point3D SceneGenerator::makePoint(QString& pointString)
    return Point3D();
 }
 
+/*
+***************************************************************
+*
+* Gets the radius form a radiusString and converts it to double  
+*
+***************************************************************
+*/
 double SceneGenerator::getRadius(QString& radiusString)
 {
    radiusString.replace(QString("Radius("), QString(""), Qt::CaseInsensitive);
@@ -149,6 +200,14 @@ double SceneGenerator::getRadius(QString& radiusString)
    return radiusString.toDouble();
 }
 
+/*
+***************************************************************
+*
+* Gets the material from the materialString and converts it into the
+* string defined by the application  
+*
+***************************************************************
+*/
 QString SceneGenerator::getMaterial(QString& materialString)
 {
    materialString.replace(QString("Material("), QString(""), Qt::CaseInsensitive);
@@ -157,6 +216,13 @@ QString SceneGenerator::getMaterial(QString& materialString)
    return materialString;
 }
 
+/*
+***************************************************************
+*
+* Converts the colourString to a Colour object to be used for lights  
+*
+***************************************************************
+*/
 Colour SceneGenerator::getColour(QString& colourString)
 {  
    colourString.replace(QString("Colour("), QString(""), Qt::CaseInsensitive);
@@ -174,11 +240,25 @@ Colour SceneGenerator::getColour(QString& colourString)
    return Colour();
 }
 
+/*
+***************************************************************
+*
+* Returns the list of objects that are in the scene  
+*
+***************************************************************
+*/
 QList<I_GenericShape*> SceneGenerator::getSceneObjects()
 {
    return objects_;
 }
 
+/*
+***************************************************************
+*
+* REturns the list of lights that are in the scene  
+*
+***************************************************************
+*/
 QList<Light*> SceneGenerator::getSceneLights()
 {
    return lights_;

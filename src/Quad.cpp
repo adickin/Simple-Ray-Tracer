@@ -35,6 +35,13 @@ Quad::~Quad()
 
 }
 
+/*
+***************************************************************
+*
+* returns a Intersection if the ray intersects with the quad.  
+*
+***************************************************************
+*/
 Intersection Quad::intersects(Ray& ray)
 {
    Intersection intersection = triangleOne_.intersects(ray);

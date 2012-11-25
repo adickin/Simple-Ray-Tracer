@@ -10,6 +10,14 @@
 #ifndef COLOUR_H
 #define COLOUR_H
 
+/*
+***************************************************************
+*
+* Defines a colour in RGB using values between 0 and 1.0.  Colours
+* are always clamped so that they do not fall out of range.
+*
+***************************************************************
+*/
 class Colour
 {
 public:

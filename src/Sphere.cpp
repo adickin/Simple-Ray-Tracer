@@ -11,6 +11,13 @@
 #include "math.h"
 #include <QObject>
 
+/*
+***************************************************************
+*
+* constructor  
+*
+***************************************************************
+*/
 Sphere::Sphere(Point3D& centerLocation, double radius)
 :I_GenericShape()
 {
@@ -23,6 +30,14 @@ Sphere::~Sphere()
 
 }
 
+/*
+***************************************************************
+*
+* returns a valid intersection if the ray intersects the sphere
+* anywhere.  
+*
+***************************************************************
+*/
 Intersection Sphere::intersects(Ray& ray)
 {
    Vector3D c(ray.startPoint(), center_);
@@ -76,6 +91,13 @@ Intersection Sphere::intersects(Ray& ray)
    return intersection;
 }
 
+/*
+***************************************************************
+*
+* files the Intersection with data if the ray actually hits the sphere.  
+*
+***************************************************************
+*/
 void Sphere::fillIntersection(Intersection& intersection, Ray& ray, double distance)
 {
    Point3D intersectionPoint;

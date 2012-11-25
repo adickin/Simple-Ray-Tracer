@@ -10,7 +10,14 @@
 #ifndef POINT3D_H
 #define POINT3D_H
 
-
+/*
+***************************************************************
+*
+* Represents a point in a 3D setting.  Has functions to 
+* get and set the location of the point.   
+*
+***************************************************************
+*/
 class Point3D
 {
 public:

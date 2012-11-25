@@ -9,6 +9,14 @@
 
 #include "Triangle.h"
 
+/*
+***************************************************************
+*
+* constructor.  extends plane since a triangle is a plane that is
+* bounded between 3 points.
+*
+***************************************************************
+*/
 Triangle::Triangle(Point3D one, Point3D two, Point3D three)
 :Plane(one, two, three)
 {
@@ -20,6 +28,14 @@ Triangle::~Triangle()
 
 }
 
+/*
+***************************************************************
+*
+* Returns a valid intersection if the ray hits the part of the plane that
+* the triangle is occupying.  
+*
+***************************************************************
+*/
 Intersection Triangle::intersects(Ray& ray)
 {
    Intersection intersectionWithPlane = Plane::intersects(ray);

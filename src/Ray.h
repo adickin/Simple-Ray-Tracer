@@ -12,6 +12,14 @@
 
 #include "Vector3D.h"
 #include "Point3D.h"
+
+/*
+***************************************************************
+*
+* Represents a ray in the 3d space, has a start point and a direction.  
+*
+***************************************************************
+*/
 class Ray
 {
 public:

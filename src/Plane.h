@@ -15,6 +15,15 @@
 #include "Vector3D.h"
 #include "Ray.h"
 
+/*
+***************************************************************
+*
+* Class that represents a plane that a ray can intersect with
+* The plane will always intersect with the ray unless the ray is parallel 
+* to the plane.  Mainly a base class for the Triangle shape.  
+*
+***************************************************************
+*/
 class Plane : public I_GenericShape
 {
 public:

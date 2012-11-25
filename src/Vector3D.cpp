@@ -60,6 +60,13 @@ Vector3D::~Vector3D()
    //does nothing
 }
 
+/*
+***************************************************************
+*
+* overloaded - operator to allow for minusing a vector from another  
+*
+***************************************************************
+*/
 Vector3D Vector3D::operator-(const Vector3D &rhs)
 {
    Vector3D returnedVector;
@@ -69,6 +76,13 @@ Vector3D Vector3D::operator-(const Vector3D &rhs)
    return returnedVector;
 }
 
+/*
+***************************************************************
+*
+* Overloaded + operator to allow for addition of vectors.  
+*
+***************************************************************
+*/
 Vector3D Vector3D::operator+(const Vector3D &rhs)
 {
    Vector3D returnedVector;
@@ -78,6 +92,13 @@ Vector3D Vector3D::operator+(const Vector3D &rhs)
    return returnedVector;
 }
 
+/*
+***************************************************************
+*
+* Overloaded = operator to allow setting another vector equal to another  
+*
+***************************************************************
+*/
 Vector3D& Vector3D::operator=(const Vector3D &rhs)
 {
    x_ = rhs.x();
@@ -87,6 +108,13 @@ Vector3D& Vector3D::operator=(const Vector3D &rhs)
    return *this;
 }
 
+/*
+***************************************************************
+*
+* computes the dot product between two vectors.  
+*
+***************************************************************
+*/
 double Vector3D::dotProduct(const Vector3D& vector)
 {
    double product = (x_ * vector.x()) + (y_ * vector.y()) + (z_ * vector.z());
@@ -133,6 +161,13 @@ void Vector3D::normalizeVector()
    isUnitVector_ = true;
 }
 
+/*
+***************************************************************
+*
+* Allows for a vector3d to be multiplied by a scalar value.  
+*
+***************************************************************
+*/
 void Vector3D::multiplyByConstant(double constant)
 {
    setX(x_ * constant);
@@ -140,6 +175,13 @@ void Vector3D::multiplyByConstant(double constant)
    setZ(z_ * constant);
 }
 
+/*
+***************************************************************
+*
+* Calculates teh reflected vector from a normal vector and incoming vector.  
+*
+***************************************************************
+*/
 Vector3D Vector3D::calculateReflectionVector(const Vector3D& normalVector, const Vector3D& incomingVector)
 {
    Vector3D reflection = incomingVector;

@@ -23,6 +23,16 @@
 class Ray;
 class Colour;
 
+/*
+***************************************************************
+*
+* Represents the scene, holds the main recursive TRACE function that 
+* is essential to a ray tracer.  Provides hookes into the scenegenerator
+* that loads scenes from files.  Is threaded so that the GUI is still
+* responsive while a scene is being traced.
+*
+***************************************************************
+*/
 class Scene : public QThread
 {
    Q_OBJECT

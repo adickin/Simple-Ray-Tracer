@@ -10,6 +10,13 @@
 #include "Point3D.h"
 #include <QObject>
 
+/*
+***************************************************************
+*
+* Default constructor  
+*
+***************************************************************
+*/
 Point3D::Point3D()
 {
    x_ = 0;
@@ -17,6 +24,13 @@ Point3D::Point3D()
    z_ = 0;
 }
 
+/*
+***************************************************************
+*
+* overloaded constructor  
+*
+***************************************************************
+*/
 Point3D::Point3D(double x, double y, double z)
 {
    x_ = x;
@@ -24,6 +38,13 @@ Point3D::Point3D(double x, double y, double z)
    z_ = z;
 }
 
+/*
+***************************************************************
+*
+* Overloaded == operator to compare 2 points in space.  
+*
+***************************************************************
+*/
 bool Point3D::operator==(const Point3D &rhs)
 {
    bool equal = true;
@@ -33,6 +54,13 @@ bool Point3D::operator==(const Point3D &rhs)
    return equal;
 }
 
+/*
+***************************************************************
+*
+* Overloaded - operator to minus one point from another  
+*
+***************************************************************
+*/
 Point3D Point3D::operator-(const Point3D& rhs)
 {
    return Point3D(x_ - rhs.x(), y_ - rhs.y(), z_ - rhs.z());

@@ -14,8 +14,8 @@
 
 #include "Colour.h"
 #include "Point3D.h"
-#include "Vector3D.h"
 #include "Ray.h"
+#include "Vector3D.h"
 
 struct Material
 {
@@ -43,7 +43,15 @@ struct Intersection
    double attenuation;
 };
 
-
+/*
+***************************************************************
+*
+* Parent class of all shapes that shares functions that are common
+* between all shapes.  Provides a virtual intersects function that must
+* be implemented by children of this class  
+*
+***************************************************************
+*/
 class I_GenericShape
 {
 
@@ -77,6 +85,7 @@ public:
    void setMaterialRubber();
    void setMaterialGlass();
 
+   //children must implement this function
    virtual Intersection intersects(Ray& ray) = 0;
 
 protected:

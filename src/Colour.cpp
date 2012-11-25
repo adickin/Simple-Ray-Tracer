@@ -9,24 +9,56 @@
 
 #include "Colour.h"
 
+/*
+***************************************************************
+*
+* Constructor  
+*
+***************************************************************
+*/
 Colour::Colour()
 {
    red_ = 0;
    green_ = 0;
    blue_ = 0;
 }
+
+/*
+***************************************************************
+*
+* Constructor  
+*
+***************************************************************
+*/
 Colour::Colour(double red, double green, double blue)
 {
    red_ = red;
    green_ = green;
    blue_ = blue;
+   clamp(red_);
+   clamp(green_);
+   clamp(blue_);
 }
 
+/*
+***************************************************************
+*
+* destructor  
+*
+***************************************************************
+*/
 Colour::~Colour()
 {
 
 }
 
+/*
+***************************************************************
+*
+* Overloaded operator to allow for easy multiplication of colours  
+*
+***************************************************************
+*/
 Colour Colour::operator*(const Colour &rhs)
 {
    Colour returnColour;
@@ -36,6 +68,13 @@ Colour Colour::operator*(const Colour &rhs)
    return returnColour;
 }
 
+/*
+***************************************************************
+*
+* Overloaded operator to allow for easy addition of colours  
+*
+***************************************************************
+*/
 Colour Colour::operator+(const Colour &rhs)
 {
    Colour returnColour;
@@ -85,6 +124,13 @@ void Colour::setColour(double red, double green, double blue)
    setBlue(blue);
 }
 
+/*
+***************************************************************
+*
+* Allows a colour to be multipled by a scalar value.  
+*
+***************************************************************
+*/
 void Colour::multiplyColourByConstant(double constant)
 {
    setRed(red_ * constant);
@@ -92,6 +138,13 @@ void Colour::multiplyColourByConstant(double constant)
    setBlue(blue_ * constant);
 }
 
+/*
+***************************************************************
+*
+* clamps the \a colour to be between 0 and 1.0  
+*
+***************************************************************
+*/
 void Colour::clamp(double& colour)
 {
    if(colour > 1.0)

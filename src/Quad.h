@@ -13,6 +13,14 @@
 #include "I_GenericShape.h"
 #include "Triangle.h"
 
+/*
+***************************************************************
+*
+* Class that represents a quad in the 3d space.  Is made by using
+* two Triangles in unison that share two points.  
+*
+***************************************************************
+*/
 class Quad : public I_GenericShape
 {
 public:

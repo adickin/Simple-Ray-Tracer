@@ -34,6 +34,13 @@ Window::~Window()
 {
 }
 
+/*
+***************************************************************
+*
+* updates the label that contains the scenes image.  
+*
+***************************************************************
+*/
 void Window::updateLabel()
 {
    imageLabel_->setPixmap(QPixmap::fromImage(*image_, Qt::AutoColor));
@@ -41,6 +48,13 @@ void Window::updateLabel()
    QCoreApplication::processEvents();
 }
 
+/*
+***************************************************************
+*
+* starts the ray tracer on another thread so that GUI remains responsive  
+*
+***************************************************************
+*/
 void Window::beginDrawing()
 {
    theScene_->start();
@@ -109,6 +123,13 @@ void Window::setupSignalsAndSlots()
    connect(quitAction_, SIGNAL(triggered(bool)), this, SLOT(exitApplication(bool)));
 }
 
+/*
+***************************************************************
+*
+* Resets the image back to black  
+*
+***************************************************************
+*/
 void Window::resetImage()
 {
    if(image_ != NULL)
@@ -124,6 +145,13 @@ void Window::resetImage()
    updateLabel();
 }
 
+/*
+***************************************************************
+*
+* Opesn up a file browser to allow a user to pick a scene file to load.  
+*
+***************************************************************
+*/
 void Window::openScene()
 {
    QString fileName = QFileDialog::getOpenFileName(this, QString("Select Scene"), QString("./scenes")
@@ -135,9 +163,7 @@ void Window::openScene()
 /*
 ***************************************************************
 *
-*  QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                            "/home/jana/untitled.png",
-                            tr("Images (*.png *.xpm *.jpg)"));  
+* Opens up a file dialog that allows a user to pick a save directory.  
 *
 ***************************************************************
 */

@@ -10,10 +10,20 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
-#include "Vector3D.h"
-#include "Point3D.h"
 #include "Colour.h"
 #include "I_GenericShape.h"
+#include "Point3D.h"
+#include "Vector3D.h"
+
+/*
+***************************************************************
+*
+*  class that defines a light in a scene.  Provides functions for
+*  phong lighting.  Also has the phong lighting parts separated
+*  so that each part of the light can be accessed separatly
+*
+***************************************************************
+*/
 class Light
 {
 public:

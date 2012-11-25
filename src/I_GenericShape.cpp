@@ -12,6 +12,7 @@
 
 static int shapeCount = 0;
 
+//DEFINES ALL OF THE MATERIALS THARE ARE POSSIBLE
 static const QString bronzeMaterial = "BRONZE";
 static const QString chromeMaterial = "CHROME";
 static const QString blueMaterial = "BLUE";
@@ -65,6 +66,14 @@ Material I_GenericShape::material()
    return shapeMaterial_;
 }
 
+/*
+***************************************************************
+*
+*  Sets this shape's material to be whatever the passed in material 
+*  value is.   
+*
+***************************************************************
+*/
 void I_GenericShape::setMaterial(QString& material)
 {
    if(bronzeMaterial == material)

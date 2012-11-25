@@ -7,17 +7,24 @@
 *********************************************************************
 */
 
+#include "Light.h"
+#include "math.h"
+#include "Plane.h"
+#include "Point3D.h"
+#include "Quad.h"
 #include "Scene.h"
 #include "Sphere.h"
-#include "Plane.h"
 #include "Triangle.h"
-#include "Quad.h"
-#include "Point3D.h"
 #include "Vector3D.h"
-#include "Light.h"
 #include <QCoreApplication>
-#include "math.h"
 
+/*
+***************************************************************
+*
+*   constructor 
+*
+***************************************************************
+*/
 Scene::Scene(QObject* parent)
 :QThread(parent)
 {
@@ -34,16 +41,37 @@ Scene::~Scene()
 
 }
 
+/*
+***************************************************************
+*
+* function ran when the thread is started.  
+*
+***************************************************************
+*/
 void Scene::run()
 {
    drawScene();
 }
 
+/*
+***************************************************************
+*
+* sets the image that will be modifyed while ray tracing.  
+*
+***************************************************************
+*/
 void Scene::setImage(QImage* image)
 {
    image_ = image;
 }
 
+/*
+***************************************************************
+*
+*  function that uses the scene generator to get a scene from a file. 
+*
+***************************************************************
+*/
 void Scene::loadScene(QString& fileName)
 {
    shapes_.clear();
@@ -54,6 +82,14 @@ void Scene::loadScene(QString& fileName)
    emit sceneLoadFinished();
 }
 
+/*
+***************************************************************
+*
+* starts the main ray tracing sequence, creates rays from the camera to the location
+* on the image and then calls trace on that ray.  
+*
+***************************************************************
+*/
 void Scene::drawScene()
 {
    Ray ray;
@@ -76,6 +112,13 @@ void Scene::drawScene()
    emit finishedDrawing();
 }
 
+/*
+***************************************************************
+*
+* recursive trace function that traces a ray to a max depth of 5.  
+*
+***************************************************************
+*/
 Colour Scene::trace(Ray& ray, int depth)
 {
    if(depth == 5)
@@ -112,6 +155,13 @@ Colour Scene::trace(Ray& ray, int depth)
    return localColour + reflectedColour;
 }
 
+/*
+***************************************************************
+*
+* get the pixel colour for an intersection if it is valid.  
+*
+***************************************************************
+*/
 Colour Scene::getPixelColour(Intersection& intersection)
 {
    Colour pixelColour = intersection.material.ambient;
@@ -134,7 +184,8 @@ Colour Scene::getPixelColour(Intersection& intersection)
 /*
 ***************************************************************
 *
-*   
+* Multiple intersections can happen when a ray is fired,  this function
+* returns the closest valid intersection from a list of intersections
 *
 ***************************************************************
 */
@@ -161,6 +212,13 @@ Intersection Scene::getClosestIntersection(QList<Intersection>& intersections)
    return tempIntersection;
 }
 
+/*
+***************************************************************
+*
+* returns if the point is in line of site of at least 1 light.  
+*
+***************************************************************
+*/
 bool Scene::isPointInShadow(Intersection& intersection, Light* light)
 {
    bool isInShadow = false;
