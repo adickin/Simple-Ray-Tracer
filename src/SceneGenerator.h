@@ -14,6 +14,7 @@
 #include <QTextStream>
 
 #include "Point3D.h"
+#include "Colour.h"
 class I_GenericShape;
 class Light;
 
@@ -32,10 +33,12 @@ private:
    I_GenericShape* makeSphere(QTextStream& in);
    I_GenericShape* makeTriangle(QTextStream& in);
    I_GenericShape* makeQuad(QTextStream& in);
+   Light* makeLight(QTextStream& in);
 
    Point3D makePoint(QString& pointString);
    double getRadius(QString& radiusString);
    QString getMaterial(QString& materialString);
+   Colour getColour(QString& colourString);
    QList<I_GenericShape*> objects_;
    QList<Light*> lights_;
 

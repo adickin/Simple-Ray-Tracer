@@ -1,0 +1,41 @@
+!simple format
+!start with shape name
+!Quad is followed by 4 points and then a material
+!Triangle is followed by 3 points and a material
+!Sphere is followed by 1 point and a radius, then a material
+!Light is followed by 1 point and a colour.
+!Shapes can be commented out with '!', no need to comment out the points of shapes they will just
+!be ignored
+!Shape names can be anything as long as they contain 'Quad', 'Triangle', "Sphere", "light".
+!No spaces after the shape designator or the shape will be incorrect.
+
+!Possible Colours:
+! BRONZE, CHROME, BLUE, GLASS, 
+
+!Possible Shapes:
+! Quad, Sphere, Triangle
+
+!Possible Lights:
+! Lightx
+
+Quad:
+Point(-100, 100, 0)
+Point(200, 100, 0)
+Point(200, -100, 0)
+Point(-100, -100, 0)
+Material(CHROME)
+
+Sphere:
+Point(100, 100, 0)
+Radius(50)
+Material(CHROME)
+
+Light:
+Point(-50, 50, 200)
+Colour(1.0, 1.0, 1.0)
+
+TriangleTop:
+Point(0, 100, 0)
+Point(-50, 50, 0)
+Point(50, 50, 0)
+Material(BRONZE)

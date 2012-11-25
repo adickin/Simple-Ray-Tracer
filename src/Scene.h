@@ -31,16 +31,19 @@ public:
    Scene(QObject* parent = NULL);
    ~Scene();
 
-   void drawScene();
-   Colour trace(Ray& ray, int depth);
    void setImage(QImage* image);
    void loadScene(QString& fileName);
 
+public slots:
+   void drawScene();
+
 signals:
+   void sceneLoaded();
    void finishedDrawing();
    
 
 private:
+   Colour trace(Ray& ray, int depth);
    Colour getPixelColour(Intersection& intersection);
    Intersection getClosestIntersection(QList<Intersection>& intersections);
    bool isPointInShadow(Intersection& intersection, Light* light);
@@ -48,27 +51,17 @@ private:
 
 private:
    QList<I_GenericShape*> shapes_;
+   QList<Light*> lights_;
    SceneGenerator generator_;
+
+   QImage* image_;
 
    //EYE
    Point3D cameraLocation_;
-   Vector3D cameraDirection_;
-   Vector3D cameraUp_;
 
    //output image size.
    int imageWidth_;
    int imageHeight_;
-
-   //image plane
-   double w_;
-   double h_;
-   double z_;
-
-   QImage* image_;
-
-   //Light
-   QList<Light*> lights_;
-   //Light* lightOne_;
 
    double indexAir_;
 

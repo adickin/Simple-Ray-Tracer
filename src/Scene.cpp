@@ -27,34 +27,10 @@ Scene::Scene(QObject* parent)
    cameraLocation_.setY(0);
    cameraLocation_.setZ(720);
 
-   cameraDirection_.setX(0);
-   cameraDirection_.setY(0);
-   cameraDirection_.setZ(-30);
-
-   cameraUp_.setY(1);
-
    imageHeight_ = 480;
    imageWidth_ = 640;
 
-   w_ = imageWidth_;
-   h_ = imageHeight_;
-   z_ = cameraLocation_.z();
-
-   //Make a Light
-   Point3D lightLocation(0, 0, 100);
-   Light* lightOne;
-   lightOne = new Light(lightLocation, Colour(1.0, 1.0, 1.0));
-   lights_ << lightOne;
-
-   // Point3D lightLocation2(-65, 0, 150);
-   // Light* lightTwo;
-   // lightTwo = new Light(lightLocation2, Colour(1.0, 0.7, 0.0));
-   // lights_ << lightTwo;  
-
-   // Point3D lightLocation3(-65, -75, 150);
-   // Light* lightThree;
-   // lightThree = new Light(lightLocation3, Colour(1.0, 1.0, 1.0));
-   // lights_ << lightThree;  
+   connect(this, SIGNAL(sceneLoaded()), this, SLOT(drawScene()));
 }
 
 Scene::~Scene()
@@ -69,19 +45,18 @@ void Scene::setImage(QImage* image)
 
 void Scene::loadScene(QString& fileName)
 {
-   fprintf(stderr, "loading\n");
+   shapes_.clear();
+   lights_.clear();
    generator_.loadSceneFromFile(fileName);
-   fprintf(stderr, "finsihed loading\n");
    shapes_.append(generator_.getSceneObjects());
-   fprintf(stderr, "shapes amount %d\n", shapes_.size());
+   lights_.append(generator_.getSceneLights());
    drawScene();
-
-   emit finishedDrawing();
+   emit sceneLoaded();
+   
 }
 
 void Scene::drawScene()
 {
-   fprintf(stderr, "starting\n");
    Ray ray;
    for(int x = 0; x < imageWidth_; x++)
    {
@@ -100,6 +75,7 @@ void Scene::drawScene()
          image_->setPixel(x, y, qRgb(colour.red()*255, colour.green()*255, colour.blue()*255));
       }
    }
+   emit finishedDrawing();
 }
 
 Colour Scene::trace(Ray& ray, int depth)

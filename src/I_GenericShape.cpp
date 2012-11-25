@@ -72,7 +72,6 @@ Material I_GenericShape::material()
 
 void I_GenericShape::setMaterial(QString& material)
 {
-   fprintf(stderr, "print dis %s \n", qPrintable(material));
    if(bronzeMaterial == material)
    {
       setMaterialBronze();

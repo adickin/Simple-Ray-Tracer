@@ -102,13 +102,7 @@ void Window::resetImage()
 {
    if(image_ != NULL)
    {
-      for(int x = 0; x < 640; x++)
-      {
-         for(int y = 0; y < 480; y++)
-         {
-            image_->setPixel(x, y, qRgb(0, 0, 0));
-         }
-      }
+      image_->fill(QColor("Red"));
    }
    else
    {
@@ -122,6 +116,7 @@ void Window::openScene()
 {
    QString fileName = QFileDialog::getOpenFileName(this, QString("Select Scene"), QString("./")
                      , QString("SCENES (*.scn *.SCN"));
+   resetImage();
    theScene_->loadScene(fileName);
 }
 

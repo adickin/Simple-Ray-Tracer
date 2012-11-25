@@ -29,11 +29,14 @@ SceneGenerator::SceneGenerator()
 
 SceneGenerator::~SceneGenerator()
 {
-
+   objects_.clear();
+   lights_.clear();
 }
 
 void SceneGenerator::loadSceneFromFile(QString& filename)
 {
+   objects_.clear();
+   lights_.clear();
    QFile file(filename);
    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
          return;
@@ -54,6 +57,10 @@ void SceneGenerator::loadSceneFromFile(QString& filename)
       {
          objects_ << makeTriangle(in);
       }
+      else if(line.contains(LIGHT) && !line.contains(QString("!")))
+      {
+         lights_ << makeLight(in);
+      }
    }
 }
 
@@ -66,7 +73,7 @@ I_GenericShape* SceneGenerator::makeSphere(QTextStream& in)
    double radius = getRadius(radiusString);
    QString material = getMaterial(materialString);
    Sphere* sphere = new Sphere(point, radius);
-   sphere->setMaterial(materialString);
+   sphere->setMaterial(material);
    return sphere;
 }
 
@@ -76,7 +83,6 @@ I_GenericShape* SceneGenerator::makeTriangle(QTextStream& in)
    QString pointTwoString = in.readLine();
    QString pointThreeString = in.readLine();
    QString materialString = in.readLine();
-   fprintf(stderr, "%s, %s, %s\n", qPrintable(pointOneString), qPrintable(pointTwoString), qPrintable(pointThreeString));
    Point3D point = makePoint(pointOneString);
    Point3D point2 = makePoint(pointTwoString);
    Point3D point3 = makePoint(pointThreeString);
@@ -103,6 +109,19 @@ I_GenericShape* SceneGenerator::makeQuad(QTextStream& in)
    Quad* quad = new Quad(point, point2, point3, point4);
    quad->setMaterial(materialString);
    return quad;
+}
+
+Light* SceneGenerator::makeLight(QTextStream& in)
+{
+   QString pointOneString = in.readLine();
+   QString colourString = in.readLine();
+
+   Point3D point = makePoint(pointOneString);
+   Colour colour = getColour(colourString);
+
+   Light* light = new Light(point, colour);
+
+   return light;
 }
 
 Point3D SceneGenerator::makePoint(QString& pointString)
@@ -136,6 +155,23 @@ QString SceneGenerator::getMaterial(QString& materialString)
    materialString.replace(QString(")"), QString(""), Qt::CaseInsensitive);
    materialString = materialString.trimmed();
    return materialString;
+}
+
+Colour SceneGenerator::getColour(QString& colourString)
+{  
+   colourString.replace(QString("Colour("), QString(""), Qt::CaseInsensitive);
+   colourString.replace(QString(")"), QString(""), Qt::CaseInsensitive);
+
+   QStringList points = colourString.split(QString(","));
+
+   if(points.size() == 3)
+   {
+      double x = points.at(0).toDouble();
+      double y = points.at(1).toDouble();
+      double z = points.at(2).toDouble();
+      return Colour(x, y, z);
+   }
+   return Colour();
 }
 
 QList<I_GenericShape*> SceneGenerator::getSceneObjects()
