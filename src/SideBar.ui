@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
+    <width>192</width>
     <height>693</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>320</width>
+    <width>192</width>
     <height>0</height>
    </size>
   </property>
@@ -32,13 +32,6 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QPushButton" name="randomizeSceneButton">
-     <property name="text">
-      <string>RANDOMIZE A SCENEEE</string>
-     </property>
-    </widget>
-   </item>
    <item>
     <widget class="QPushButton" name="openSceneButton">
      <property name="text">

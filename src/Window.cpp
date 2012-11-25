@@ -36,10 +36,19 @@ Window::~Window()
 
 void Window::updateLabel()
 {
-   //fprintf(stderr, "getting here\n");
    imageLabel_->setPixmap(QPixmap::fromImage(*image_, Qt::AutoColor));
    imageLabel_->repaint();
    QCoreApplication::processEvents();
+}
+
+void Window::beginDrawing()
+{
+   theScene_->start();
+
+   while(theScene_->isRunning())
+   {
+      updateLabel();
+   }
 }
 
 /*
@@ -55,7 +64,7 @@ void Window::interfaceSetup()
 
    //Menu Bar
    menuBar_ = new QMenuBar(this);
-   menuBar_->setGeometry(QRect(0, 0, 810, 26));
+   menuBar_->setGeometry(QRect(0, 0, 600, 26));
    fileMenu_ = new QMenu(menuBar_);
    fileMenu_->setTitle(QString("File"));
    setMenuBar(menuBar_);
@@ -92,9 +101,11 @@ void Window::interfaceSetup()
 void Window::setupSignalsAndSlots()
 {
    connect(theScene_, SIGNAL(finishedDrawing()), this, SLOT(updateLabel()));
+   connect(theScene_, SIGNAL(sceneLoadFinished()), this, SLOT(beginDrawing()));
+   connect(this, SIGNAL(loadSceneRequested(QString &)), theScene_, SLOT(loadScene(QString &)));
    connect(sideBar_->ui_.openSceneButton, SIGNAL(released())
       , this, SLOT(openScene()));
-   connect(saveAction_, SIGNAL(triggered(bool)), this, SLOT(resetImage()));
+   connect(saveAction_, SIGNAL(triggered(bool)), this, SLOT(saveImage()));
    connect(quitAction_, SIGNAL(triggered(bool)), this, SLOT(exitApplication(bool)));
 }
 
@@ -102,7 +113,7 @@ void Window::resetImage()
 {
    if(image_ != NULL)
    {
-      image_->fill(QColor("Red"));
+      image_->fill(QColor("Black"));
    }
    else
    {
@@ -110,14 +121,35 @@ void Window::resetImage()
    }
 
    theScene_->setImage(image_);
+   updateLabel();
 }
 
 void Window::openScene()
 {
-   QString fileName = QFileDialog::getOpenFileName(this, QString("Select Scene"), QString("./")
+   QString fileName = QFileDialog::getOpenFileName(this, QString("Select Scene"), QString("./scenes")
                      , QString("SCENES (*.scn *.SCN"));
    resetImage();
-   theScene_->loadScene(fileName);
+   emit loadSceneRequested(fileName);
+}
+
+/*
+***************************************************************
+*
+*  QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                            "/home/jana/untitled.png",
+                            tr("Images (*.png *.xpm *.jpg)"));  
+*
+***************************************************************
+*/
+void Window::saveImage()
+{
+   if(image_)
+   {
+      QString fileName = QFileDialog::getSaveFileName(this, QString("Save File"), QString("./savedImages")
+                        ,QString("Images (*.png, *.jpg)"));
+
+      image_->save(fileName);
+   }
 }
 
 /*

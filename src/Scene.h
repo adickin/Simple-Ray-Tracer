@@ -10,44 +10,43 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <QList>
 #include <QImage>
-#include <QObject>
-#include "Point3D.h"
-#include "Vector3D.h"
+#include <QList>
+#include <QThread>
+
+#include "I_GenericShape.h"
 #include "Light.h"
+#include "Point3D.h"
 #include "SceneGenerator.h"
+#include "Vector3D.h"
 
 class Ray;
 class Colour;
 
-#include "I_GenericShape.h"
-
-class Scene : public QObject
+class Scene : public QThread
 {
    Q_OBJECT
 
 public:
    Scene(QObject* parent = NULL);
    ~Scene();
+   void run();
 
    void setImage(QImage* image);
-   void loadScene(QString& fileName);
-
+   
 public slots:
    void drawScene();
+   void loadScene(QString& fileName);
 
 signals:
-   void sceneLoaded();
    void finishedDrawing();
-   
+   void sceneLoadFinished();
 
 private:
    Colour trace(Ray& ray, int depth);
    Colour getPixelColour(Intersection& intersection);
    Intersection getClosestIntersection(QList<Intersection>& intersections);
    bool isPointInShadow(Intersection& intersection, Light* light);
-//   Ray findRefractionRay(Ray& ray, Intersection& intersection);
 
 private:
    QList<I_GenericShape*> shapes_;
@@ -62,9 +61,6 @@ private:
    //output image size.
    int imageWidth_;
    int imageHeight_;
-
-   double indexAir_;
-
 };
 
 #endif

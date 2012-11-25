@@ -10,7 +10,8 @@
 !No spaces after the shape designator or the shape will be incorrect.
 
 !Possible Colours:
-! BRONZE, CHROME, BLUE, GLASS, 
+! BRONZE, CHROME, BLUE, GLASS, RED, ORANGE, YELLOW, GREEN, INDIGO, VIOLET, WHITE, BLACK
+! BLACK, BRASS, EMERALD, JADE, OBSIDIAN, PEARL, RUBY, TURQUOISE, RUBBER
 
 !Possible Shapes:
 ! Quad, Sphere, Triangle
@@ -23,19 +24,19 @@ Point(-100, 100, 0)
 Point(200, 100, 0)
 Point(200, -100, 0)
 Point(-100, -100, 0)
-Material(CHROME)
+Material(BLUE)
 
 Sphere:
-Point(100, 100, 0)
+Point(100, 50, 55)
 Radius(50)
-Material(CHROME)
+Material(OBSIDIAN)
 
 Light:
-Point(-50, 50, 200)
+Point(0, 0, 200)
 Colour(1.0, 1.0, 1.0)
 
 TriangleTop:
-Point(0, 100, 0)
-Point(-50, 50, 0)
-Point(50, 50, 0)
-Material(BRONZE)
+Point(0, 50, 20)
+Point(-50, 0, 2)
+Point(50, 0, 10)
+Material(RUBY)

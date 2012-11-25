@@ -26,6 +26,7 @@ public:
    void setRed(double red);
    void setGreen(double green);
    void setBlue(double blue);
+   void setColour(double red, double green, double blue);
 
    void multiplyColourByConstant(double constant);
 

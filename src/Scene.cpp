@@ -19,23 +19,24 @@
 #include "math.h"
 
 Scene::Scene(QObject* parent)
-:QObject(parent)
+:QThread(parent)
 {
-   indexAir_ = 1.000029;
-
    cameraLocation_.setX(0);
    cameraLocation_.setY(0);
-   cameraLocation_.setZ(720);
+   cameraLocation_.setZ(850);
 
    imageHeight_ = 480;
    imageWidth_ = 640;
-
-   connect(this, SIGNAL(sceneLoaded()), this, SLOT(drawScene()));
 }
 
 Scene::~Scene()
 {
 
+}
+
+void Scene::run()
+{
+   drawScene();
 }
 
 void Scene::setImage(QImage* image)
@@ -50,9 +51,7 @@ void Scene::loadScene(QString& fileName)
    generator_.loadSceneFromFile(fileName);
    shapes_.append(generator_.getSceneObjects());
    lights_.append(generator_.getSceneLights());
-   drawScene();
-   emit sceneLoaded();
-   
+   emit sceneLoadFinished();
 }
 
 void Scene::drawScene()
@@ -69,7 +68,6 @@ void Scene::drawScene()
          
          ray.setDirectionVector(vector);
          ray.setStartPoint(cameraLocation_);
-         ray.setRefractionIndex(indexAir_);
 
          Colour colour = trace(ray, 0);
          image_->setPixel(x, y, qRgb(colour.red()*255, colour.green()*255, colour.blue()*255));
@@ -190,83 +188,3 @@ bool Scene::isPointInShadow(Intersection& intersection, Light* light)
 
    return isInShadow;
 }
-
-// /*
-// ***************************************************************
-// *
-// *   
-// *
-// ***************************************************************
-// */
-// Ray Scene::findRefractionRay(Ray& ray, Intersection& intersection)
-// {
-//    double mediumOne;
-//    double mediumTwo;
-//    Vector3D refractedVector;
-//    if(ray.insideObject())
-//    {
-//       mediumOne = intersection.material.refractionIndex;
-//       mediumTwo = indexAir_;
-//    }
-//    else
-//    {
-//       mediumOne = indexAir_;
-//       mediumTwo = intersection.material.refractionIndex;
-//    }
-
-
-//    double n = mediumTwo/mediumOne;
-
-//    double cosI = intersection.normal.dotProduct(ray.directionVector());
-//    double sinT2 = n*n * (1.0 - cosI*cosI);
-
-//    bool valid = true;
-//    if(sinT2 > 1.0)
-//    {
-//       valid = false;
-//       fprintf(stderr, "TIR\n");
-//    }
-//    else
-//    {
-//       fprintf(stderr, "YAY\n");
-//       refractedVector = intersection.normal;
-//       Vector3D temp = ray.directionVector();
-//       temp.multiplyByConstant(n);
-//       refractedVector.multiplyByConstant(n + sqrt(1.0 - sinT2));
-//       refractedVector = temp - refractedVector;
-//    }
-
-//    Ray refractedRay;
-//    refractedRay.valid = valid;
-//    refractedRay.setDirectionVector(refractedVector);
-//    refractedRay.setStartPoint(intersection.intersectionPointClosest);
-//    refractedRay.setInsideObject(false);
-
-//    // double nDotL = intersection.normal.dotProduct(ray.directionVector());
-//    // double signNDotL = sin(nDotL);
-//    // double sqrtStuffMinusDotN = sqrt((1-n*n) + (nDotL*nDotL)*(n*n)) - nDotL*n;
-
-//    // Vector3D temp = intersection.normal;
-//    // temp.multiplyByConstant(signNDotL * sqrtStuffMinusDotN);
-
-//    // Vector3D temp2 = ray.directionVector();
-//    // temp2.multiplyByConstant(n);
-
-//    // refractedVector = temp + temp2;
-//    // refractedVector.normalizeVector();
-
-//    // Ray refractedRay;
-//    // refractedRay.setDirectionVector(refractedVector);
-//    // refractedRay.setStartPoint(intersection.intersectionPointClosest);
-//    // refractedRay.setFromObjectId(intersection.objectId);
-//    // if(ray.insideObject())
-//    // {
-//    //    refractedRay.setInsideObject(false);
-//    // }
-//    // else
-//    // {
-//    //    refractedRay.setInsideObject(true);
-//    // }
-
-//    return refractedRay;
-// }

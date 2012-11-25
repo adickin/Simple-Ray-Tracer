@@ -14,9 +14,8 @@ int main (int argc, char **argv)
    QApplication app (argc, argv);
 
    Window* w = new Window();
-   w->resize(1000, 750);
+   w->resize(856, 524);
    w->show(); 
-   //w->resetImage();
-	//test
+
    return app.exec();
 }

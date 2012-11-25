@@ -1,0 +1,191 @@
+Light:
+Point(-200, 200, 400)
+Colour(1.0, 0.0, 0.0)
+
+Light:
+Point(0, 0, 400)
+Colour(0.0, 1.0, 0.0)
+
+Light:
+Point(200, -200, 400)
+Colour(0.0, 0.0, 1.0)
+
+Light:
+Point(200, 200, 400)
+Colour(0.0, 1.0, 0.0)
+
+Light:
+Point(-200, -200, 400)
+Colour(1.0, 0.0, 0.0)
+
+Light:
+Point(400, 0, 400)
+Colour(1.0, 0.0, 0.0)
+
+
+
+Sphere:
+Point(0, 0, 0)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(100, 0, 0)
+Radius(50)
+Material(CHROME)
+
+Sphere:
+Point(-100, 0, 0)
+Radius(50)
+Material(CHROME)
+
+Sphere:
+Point(0, 100, 0)
+Radius(50)
+Material(CHROME)
+
+Sphere:
+Point(0, -100, 0)
+Radius(50)
+Material(CHROME)
+
+Sphere:
+Point(100, 100, 0)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(100, -100, 0)
+Radius(50)
+Material(CHROME)
+
+Sphere:
+Point(-100, 100, 0)
+Radius(50)
+Material(CHROME)
+
+Sphere:
+Point(-100, -100, 0)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(100, -100, -100)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(100, 0, -100)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(100, 100, -100)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(100, -100, -200)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(100, 0, -200)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(100, 100, -200)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(200, -100, -200)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(200, 0, -200)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(200, 100, -200)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(300, -100, -200)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(300, 0, -200)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(300, 100, -200)
+Radius(50)
+Material(VIOLET)
+
+Sphere:
+Point(-50, -50, 0)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(50, 50, 0)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(-50, 50, 0)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(50, -50, 0)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(100, 50, -50)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(100, -50, -50)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(100, 50, -150)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(100, -50, -150)
+Radius(25)
+Material(OBSIDIAN)
+
+!*******
+Sphere:
+Point(150, 50, -200)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(150, -50, -200)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(250, 50, -200)
+Radius(25)
+Material(OBSIDIAN)
+
+Sphere:
+Point(250, -50, -200)
+Radius(25)
+Material(OBSIDIAN)

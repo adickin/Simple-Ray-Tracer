@@ -38,10 +38,13 @@ public:
 
 public slots:
    void resetImage();
+   void saveImage();
    void updateLabel();
+   void beginDrawing();
 
 signals:
    void start();
+   void loadSceneRequested(QString&);
 
 private://methods
    void interfaceSetup();

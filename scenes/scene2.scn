@@ -1,0 +1,77 @@
+QuadBack:
+Point(-200, 125, -150)
+Point(200, 125, -50)
+Point(200, -125, -50)
+Point(-200, -125, -150)
+Material(GLASS)
+
+QuadTop:
+Point(-250, 125, 150)
+Point(250, 125, 250)
+Point(200, 125, -50)
+Point(-200, 125, -150)
+Material(PEARL)
+
+QuadBottom:
+Point(-200, -125, -150)
+Point(200, -125, -50)
+Point(250, -125, 250)
+Point(-250, -125, 150)
+Material(PEARL)
+
+QuadLeft:
+Point(-250, 125, 150)
+Point(-200, 125, -150)
+Point(-200, -125, -150)
+Point(-250, -125, 150)
+Material(PEARL)
+
+QuadRight:
+Point(200, 125, -50)
+Point(250, 125, 250)
+Point(250, -125, 250)
+Point(200, -125, -50)
+Material(PEARL)
+
+Sphere:
+Point(50, 50, 100);
+Radius(25)
+Material(RED)
+
+Sphere:
+Point(-55, -46, -75);
+Radius(25)
+Material(GREEN)
+
+Sphere:
+Point(0, 0, -25);
+Radius(15)
+Material(BLACK)
+
+Sphere:
+Point(-150, 75, -100);
+Radius(30)
+Material(VIOLET)
+
+Sphere:
+Point(175, -75, -50);
+Radius(30)
+Material(BRONZE)
+
+TriangleTop:
+Point(200, 125, -50)
+Point(50, -125, 100)
+Point(200, -125, -50)
+Material(INDIGO)
+
+Light:
+Point(-350, -150, 400)
+Colour(1.0, 1.0, 1.0)
+
+Light:
+Point(300, 175, 400)
+Colour(0.0, 0.0, 1.0)
+
+Light:
+Point(0, 0, 900)
+Colour(1.0, 0.0, 0.0)

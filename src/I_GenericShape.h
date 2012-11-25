@@ -25,10 +25,8 @@ struct Material
 
    double localIllumination;
    double reflectedIllumination;
-   double refractedIllumination;
+
    double shinyness;
-   double refractionIndex;
-   Colour emission;
 };
 
 struct Intersection
@@ -61,6 +59,22 @@ public:
    void setMaterialChrome();
    void setMaterialBronze();
    void setMaterialBlue();
+   void setMaterialRed();
+   void setMaterialOrange();
+   void setMaterialYellow();
+   void setMaterialGreen();
+   void setMaterialIndigo();
+   void setMaterialViolet();
+   void setMaterialWhite();
+   void setMaterialBlack();
+   void setMaterialBrass();
+   void setMaterialEmerald();
+   void setMaterialJade();
+   void setMaterialObsidian();
+   void setMaterialPearl();
+   void setMaterialRuby();
+   void setMaterialTurquoise();
+   void setMaterialRubber();
    void setMaterialGlass();
 
    virtual Intersection intersects(Ray& ray) = 0;

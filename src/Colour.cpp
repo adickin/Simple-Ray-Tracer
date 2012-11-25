@@ -78,6 +78,13 @@ void Colour::setBlue(double blue)
    clamp(blue_);
 }
 
+void Colour::setColour(double red, double green, double blue)
+{
+   setRed(red);
+   setGreen(green);
+   setBlue(blue);
+}
+
 void Colour::multiplyColourByConstant(double constant)
 {
    setRed(red_ * constant);
