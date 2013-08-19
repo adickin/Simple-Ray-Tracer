@@ -1,7 +1,3 @@
-Adam Dickin
-10016859
-Assignment 3
-
 Code Reuse: 
 -Adapted some classes from Assignment2 for use with this assignment
 -Used material colours from http://globe3d.sourceforge.net/g3d_html/gl-materials__ads.htm
